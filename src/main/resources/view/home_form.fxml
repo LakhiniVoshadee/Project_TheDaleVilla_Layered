@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane fx:id="pagingPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="890.0" prefWidth="1242.0" style="-fx-background-color: red;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.HomeFormController">
+   <children>
+      <Rectangle fill="#717744" height="890.0" layoutX="-6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1254.0" />
+      <Text fill="WHITE" layoutX="76.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome, Dale Villa Mirissa" wrappingWidth="545.0">
+         <font>
+            <Font name="Arial Bold" size="41.0" />
+         </font>
+      </Text>
+      <Pane layoutX="54.0" layoutY="165.0" prefHeight="97.0" prefWidth="300.0" style="-fx-background-color: #BCBD8B; -fx-background-radius: 30;">
+         <children>
+            <ImageView fitHeight="67.0" fitWidth="66.0" layoutX="22.0" layoutY="14.0">
+               <image>
+                  <Image url="@../assets/icons/reputation.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="109.0" layoutY="14.0" text="Customer Count">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblCusCount" alignment="CENTER" layoutX="123.0" layoutY="39.0" prefHeight="45.0" prefWidth="94.0">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <Pane layoutX="749.0" layoutY="165.0" prefHeight="97.0" prefWidth="300.0" style="-fx-background-color: #BCBD8B; -fx-background-radius: 30;">
+         <children>
+            <ImageView fitHeight="67.0" fitWidth="84.0" layoutX="14.0" layoutY="15.0">
+               <image>
+                  <Image url="@../assets/icons/rental.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="137.0" layoutY="14.0" prefHeight="27.0" prefWidth="120.0" text="Rental Count">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblRentalCount" alignment="CENTER" layoutX="137.0" layoutY="39.0" prefHeight="45.0" prefWidth="94.0">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <Pane layoutX="404.0" layoutY="165.0" prefHeight="97.0" prefWidth="300.0" style="-fx-background-color: #BCBD8B; -fx-background-radius: 30;">
+         <children>
+            <Label layoutX="120.0" layoutY="12.0" text="Room Count">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblRoomCount" alignment="CENTER" layoutX="120.0" layoutY="37.0" prefHeight="45.0" prefWidth="94.0">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="19.0" layoutY="16.0">
+               <image>
+                  <Image url="@../assets/icons/bedB.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+      <Pane layoutX="40.0" layoutY="343.0" prefHeight="483.0" prefWidth="508.0" style="-fx-background-color: #BCBD8B; -fx-background-radius: 30;">
+         <children>
+            <Label layoutX="49.0" layoutY="36.0" prefHeight="30.0" prefWidth="184.0" text="Available Room">
+               <font>
+                  <Font name="Arial Bold" size="22.0" />
+               </font>
+            </Label>
+            <PieChart fx:id="pieChart" layoutX="25.0" layoutY="75.0" prefHeight="367.0" prefWidth="458.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="621.0" layoutY="343.0" prefHeight="483.0" prefWidth="555.0" style="-fx-background-color: #BCBD8B; -fx-background-radius: 30;">
+         <children>
+            <Label layoutX="82.0" layoutY="34.0" prefHeight="30.0" prefWidth="184.0" text="Room Total">
+               <font>
+                  <Font name="Arial Bold" size="22.0" />
+               </font>
+            </Label>
+            <BarChart fx:id="barChart" layoutX="40.0" layoutY="80.0" prefHeight="373.0" prefWidth="428.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </BarChart>
+         </children></Pane>
+      <Label fx:id="lblTime" layoutX="1046.0" layoutY="72.0" prefHeight="37.0" prefWidth="155.0" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDate" layoutX="1027.0" layoutY="21.0" prefHeight="45.0" prefWidth="193.0" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="87.0" layoutY="72.0" prefHeight="37.0" prefWidth="207.0" text="Have a nice day!" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane fx:id="pagingPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="890.0" prefWidth="1242.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.EmployeeFormController">
+   <children>
+      <Rectangle fx:id="txtDob" fill="#717744" height="890.0" layoutX="-1.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1250.0" />
+      <Text fill="WHITE" layoutX="56.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Manage" wrappingWidth="373.13671875">
+         <font>
+            <Font name="System Bold" size="38.0" />
+         </font>
+      </Text>
+      <Text fill="#fffefe" layoutX="51.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee ID" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txtEmpId" layoutX="51.0" layoutY="227.0" onKeyReleased="#txtKeyOnRele" prefHeight="51.0" prefWidth="300.0" style="-fx-background-radius: 20; -fx-background-color: white; -fx-border-width: 1;" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bcbd8b" height="324.0" layoutX="5.0" layoutY="546.0" opacity="0.35" stroke="BLACK" strokeType="INSIDE" width="1226.0" />
+      <TableView fx:id="tblEmployee" layoutX="16.0" layoutY="557.0" onMouseClicked="#employeeTableClick" prefHeight="298.0" prefWidth="1204.0">
+        <columns>
+          <TableColumn fx:id="colId" prefWidth="138.0" text="ID" />
+          <TableColumn fx:id="colName" prefWidth="187.0" text="Name" />
+            <TableColumn fx:id="colType" minWidth="0.0" prefWidth="216.0" text="Type" />
+            <TableColumn fx:id="colEmail" minWidth="0.0" prefWidth="347.0" text="Email" />
+            <TableColumn fx:id="colDob" prefWidth="315.0" text="Date Of Birth" />
+        </columns>
+      </TableView>
+      <Text fill="#fffefe" layoutX="602.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Name" wrappingWidth="167.13671875">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="55.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="602.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="56.0" layoutY="427.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOB">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Text>
+      <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" layoutX="1079.0" layoutY="270.0" onAction="#btnClearOnAction" prefHeight="51.0" prefWidth="120.0" style="-fx-background-color: #373D20; -fx-background-radius: 20;" text="Refresh" textFill="#ffe9e9">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" layoutX="1075.0" layoutY="349.0" onAction="#btnDeleteOnAction" prefHeight="51.0" prefWidth="120.0" style="-fx-background-color: #373D20; -fx-background-radius: 20;" text="Delete" textFill="#ffe9e9">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" layoutX="1078.0" layoutY="189.0" onAction="#btnUpdateOnAction" prefHeight="51.0" prefWidth="113.0" style="-fx-background-color: #373D20; -fx-background-radius: 20;" text="Update" textFill="#ffe9e9">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" layoutX="1078.0" layoutY="109.0" onAction="#btnSaveOnAction" prefHeight="51.0" prefWidth="113.0" style="-fx-background-color: #373D20; -fx-background-radius: 20;" text="Save" textFill="#ffe9e9">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="23.0" fitWidth="21.0" layoutX="1097.0" layoutY="123.0">
+         <image>
+            <Image url="@../assets/icons/save.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="30.0" fitWidth="28.0" layoutX="1093.0" layoutY="360.0">
+         <image>
+            <Image url="@../assets/icons/trash.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtEmail" layoutX="600.0" layoutY="349.0" onKeyReleased="#txtKeyOnRele" prefHeight="51.0" prefWidth="300.0" style="-fx-background-radius: 20; -fx-background-color: white;" />
+      <TextField fx:id="txtType" layoutX="51.0" layoutY="324.0" prefHeight="51.0" prefWidth="300.0" style="-fx-background-radius: 20; -fx-background-color: white;" />
+      <TextField fx:id="txtEmpName" layoutX="600.0" layoutY="234.0" onKeyReleased="#txtKeyOnRele" prefHeight="51.0" prefWidth="300.0" style="-fx-background-radius: 20; -fx-background-color: white;" />
+      <DatePicker fx:id="pickerDate" layoutX="51.0" layoutY="453.0" prefHeight="51.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 30; -fx-border-color: #717744;" />
+      <Label fx:id="lblType" layoutX="56.0" layoutY="375.0" prefHeight="19.0" prefWidth="274.0" textFill="RED">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Label fx:id="lblEmail" layoutX="613.0" layoutY="410.0" prefHeight="19.0" prefWidth="274.0" textFill="RED">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Label fx:id="lblEmployeeName" layoutX="613.0" layoutY="285.0" prefHeight="19.0" prefWidth="274.0" textFill="RED">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <ImageView fitHeight="23.0" fitWidth="28.0" layoutX="1092.0" layoutY="282.0">
+         <image>
+            <Image url="@../assets/icons/refresh.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="23.0" fitWidth="38.0" layoutX="1088.0" layoutY="203.0">
+         <image>
+            <Image url="@../assets/icons/update.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

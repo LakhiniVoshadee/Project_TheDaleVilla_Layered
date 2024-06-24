@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane fx:id="pageInPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="890.0" prefWidth="1242.0" style="-fx-background-color: blue;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.RoomFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#717744" height="903.0" layoutX="-7.0" layoutY="-6.0" stroke="BLACK" strokeType="INSIDE" width="1251.0" />
+      <Text fill="#fff9f9" layoutX="54.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Manage">
+         <font>
+            <Font name="System Bold" size="38.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txtRoomId" layoutX="62.0" layoutY="181.0" onKeyReleased="#txtKeyOnRele" prefHeight="51.0" prefWidth="300.0" style="-fx-background-radius: 20; -fx-background-color: white;" />
+      <Text fill="#fffefe" layoutX="76.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" ID" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="#fffefe" layoutX="76.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="#fffefe" layoutX="639.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" layoutX="1009.0" layoutY="131.0" onAction="#btnClearOnAction" prefHeight="61.0" prefWidth="139.0" style="-fx-background-color: #373D20; -fx-background-radius: 20;" text="Refresh" textFill="#ffe9e9">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" layoutX="1019.0" layoutY="223.0" onAction="#btnDeleteOnAction" prefHeight="61.0" prefWidth="120.0" style="-fx-background-color: #373D20; -fx-background-radius: 20;" text="Delete" textFill="#fffbfb">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" layoutX="1025.0" layoutY="415.0" onAction="#btnUpdateOnAction" prefHeight="61.0" prefWidth="120.0" style="-fx-background-color: #373D20; -fx-background-radius: 20;" text="Update" textFill="#ffe9e9">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" layoutX="1025.0" layoutY="322.0" onAction="#btnSaveOnAction" prefHeight="61.0" prefWidth="109.0" style="-fx-background-color: #373D20; -fx-background-radius: 20;" text="Save" textFill="#ffe9e9">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <TextField fx:id="txtType" layoutX="621.0" layoutY="181.0" prefHeight="51.0" prefWidth="300.0" style="-fx-background-radius: 20;" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bcbd8b" height="318.0" layoutX="18.0" layoutY="561.0" opacity="0.35" stroke="BLACK" strokeType="INSIDE" width="1206.0" />
+      <TableView fx:id="tblRoom" layoutX="36.0" layoutY="589.0" onMouseClicked="#roomTableClick" prefHeight="271.0" prefWidth="1167.0">
+         <columns>
+            <TableColumn fx:id="colId" prefWidth="149.0" text="Room ID" />
+            <TableColumn fx:id="colType" prefWidth="189.0" text="Type" />
+            <TableColumn fx:id="colDate" prefWidth="169.0" text="Date" />
+            <TableColumn fx:id="colCusId" prefWidth="185.0" text="Customer ID" />
+            <TableColumn fx:id="colUnitPrice" prefWidth="265.0" text="Unit Price" />
+            <TableColumn fx:id="colQty" prefWidth="209.0" text="Qty" />
+         </columns>
+      </TableView>
+      <DatePicker fx:id="txtDate" layoutX="62.0" layoutY="301.0" prefHeight="51.0" prefWidth="300.0" />
+      <ComboBox fx:id="cmbId" layoutX="619.0" layoutY="301.0" prefHeight="51.0" prefWidth="300.0" />
+      <Text fill="#fffefe" layoutX="621.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer ID" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="#fffefe" layoutX="621.0" layoutY="407.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unit Price" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txtUnitPrice" layoutX="621.0" layoutY="420.0" onKeyReleased="#txtKeyOnRele" prefHeight="51.0" prefWidth="300.0" style="-fx-background-radius: 20;" />
+      <Text fill="#fffefe" layoutX="62.0" layoutY="410.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Qty" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txtQty" layoutX="62.0" layoutY="436.0" prefHeight="51.0" prefWidth="300.0" style="-fx-background-radius: 20;" />
+      <Label fx:id="lblRoomType" layoutX="629.0" layoutY="234.0" prefHeight="17.0" prefWidth="284.0" textFill="RED" />
+      <Label fx:id="lblRoomUp" layoutX="621.0" layoutY="471.0" prefHeight="17.0" prefWidth="300.0" textFill="RED" />
+      <Label fx:id="lblRoomQty" layoutX="74.0" layoutY="487.0" prefHeight="17.0" prefWidth="276.0" textFill="RED" />
+      <ImageView fitHeight="23.0" fitWidth="31.0" layoutX="1029.0" layoutY="242.0">
+         <image>
+            <Image url="@../assets/icons/trash.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="32.0" fitWidth="37.0" layoutX="1023.0" layoutY="146.0">
+         <image>
+            <Image url="@../assets/icons/refresh.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="23.0" fitWidth="31.0" layoutX="1045.0" layoutY="434.0">
+         <image>
+            <Image url="@../assets/icons/update.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="23.0" fitWidth="20.0" layoutX="1050.0" layoutY="341.0">
+         <image>
+            <Image url="@../assets/icons/save.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootNode" prefHeight="896.0" prefWidth="1208.0" style="-fx-background-color: #373D20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.LoginFormController">
+   <children>
+      <Pane layoutX="102.0" layoutY="94.0" prefHeight="699.0" prefWidth="1023.0" style="-fx-background-color: #717744; -fx-background-radius: 0;">
+         <children>
+            <ImageView fitHeight="585.0" fitWidth="464.0" layoutX="559.0" layoutY="114.0">
+               <image>
+                  <Image url="@../assets/images/istockphoto-1390497643-1024x1024-transformed.jpeg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="607.0" fitWidth="295.0" layoutX="-2.0">
+               <image>
+                  <Image url="@../assets/images/istockphoto-1158627001-1024x1024-transformed.jpeg" />
+               </image>
+            </ImageView>
+            <Pane layoutX="230.0" layoutY="114.0" prefHeight="495.0" prefWidth="567.0" style="-fx-background-color: #373D20;">
+               <children>
+                  <TextField id="txtUserName" fx:id="txtUserId" layoutX="141.0" layoutY="157.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="54.0" prefWidth="274.0" promptText="Enter Username" style="-fx-background-radius: 30; -fx-border-width: 1; -fx-border-color: white; -fx-background-color: #373D20;" styleClass="txtUserName" stylesheets="@../values/style.css">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TextField>
+                  <PasswordField id="txtPassword" fx:id="txtPassword" layoutX="141.0" layoutY="230.0" prefHeight="54.0" prefWidth="274.0" promptText="Enter Password" style="-fx-background-color: #373D20; -fx-background-radius: 30; -fx-border-width: 1; -fx-border-color: white;" styleClass="txtPassword" stylesheets="@../values/style.css">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </PasswordField>
+                  <JFXButton fx:id="btnLogin" buttonType="RAISED" layoutX="141.0" layoutY="317.0" onAction="#btnLoginOnAction" prefHeight="54.0" prefWidth="274.0" ripplerFill="BLACK" style="-fx-background-color: WHITE; -fx-background-radius: 1;" text="Log In">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <Hyperlink id="txtsignup" fx:id="hyperSignUp" layoutX="338.0" layoutY="413.0" onAction="#linkSignUpOnAction" prefHeight="29.0" prefWidth="93.0" styleClass="txtsignup" stylesheets="@../values/style.css" text="Sign Up">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Hyperlink>
+                  <Label layoutX="141.0" layoutY="417.0" prefHeight="17.0" prefWidth="181.0" text="Don't you have a account?" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="214.0" layoutY="84.0" text="Hola," textFill="WHITE">
+                     <font>
+                        <Font name="Georgia Bold" size="33.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutX="293.0" prefHeight="47.0" prefWidth="730.0" style="-fx-background-color: #BCBD8B;" />
+            <Pane layoutY="653.0" prefHeight="47.0" prefWidth="559.0" style="-fx-background-color: #BCBD8B;" />
+            <ImageView fitHeight="148.0" fitWidth="160.0" layoutX="32.0" layoutY="24.0">
+               <image>
+                  <Image url="@../assets/the-dale-villa-high-resolution-logo-black-transparent.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane fx:id="pageInPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="890.0" prefWidth="1242.0" style="-fx-background-color: blue;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.RentFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#717744" height="904.0" layoutX="-7.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1255.0" />
+      <Text fill="#fff9f9" layoutX="56.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rent Manage">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txtRentId" layoutX="56.0" layoutY="209.0" prefHeight="51.0" prefWidth="300.0" style="-fx-background-radius: 30; -fx-background-color: white;" />
+      <TextField fx:id="txtDescription" layoutX="645.0" layoutY="334.0" prefHeight="51.0" prefWidth="300.0" style="-fx-background-radius: 30;" />
+      <TextField fx:id="txtQty" layoutX="56.0" layoutY="334.0" prefHeight="51.0" prefWidth="300.0" style="-fx-background-radius: 30;" />
+      <Text fill="#fffefe" layoutX="63.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" ID" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="#fffefe" layoutX="63.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Qty" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="#fffefe" layoutX="662.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="#fffefe" layoutX="650.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" layoutX="1041.0" layoutY="97.0" onAction="#btnClearOnAction" prefHeight="51.0" prefWidth="129.0" style="-fx-background-color: #373D20; -fx-background-radius: 20;" text="Refresh" textFill="#ffe9e9">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" layoutX="1038.0" layoutY="185.0" onAction="#btnDeleteOnAction" prefHeight="51.0" prefWidth="129.0" style="-fx-background-color: #373D20; -fx-background-radius: 20;" text="Delete" textFill="#fffbfb">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" layoutX="763.0" layoutY="474.0" onAction="#btnUpdateOnAction" prefHeight="51.0" prefWidth="120.0" style="-fx-background-color: #373D20; -fx-background-radius: 20;" text="Update" textFill="#ffe9e9">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" layoutX="950.0" layoutY="474.0" onAction="#btnSaveOnAction" prefHeight="51.0" prefWidth="103.0" style="-fx-background-color: #373D20; -fx-background-radius: 20;" text="Save" textFill="#ffe9e9">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <TextField fx:id="txtType" layoutX="650.0" layoutY="221.0" prefHeight="51.0" prefWidth="300.0" style="-fx-background-radius: 30;" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bcbd8b" height="299.0" layoutX="117.0" layoutY="583.0" opacity="0.35" stroke="BLACK" strokeType="INSIDE" width="907.0" />
+      <TableView fx:id="tblRent" layoutX="156.0" layoutY="611.0" onMouseClicked="#rentTableClick" prefHeight="246.0" prefWidth="822.0">
+        <columns>
+          <TableColumn fx:id="colId" prefWidth="140.0" text="ID" />
+          <TableColumn fx:id="colType" prefWidth="137.0" text="Type" />
+            <TableColumn fx:id="colQty" prefWidth="137.0" text="Qty" />
+            <TableColumn fx:id="colDescription" prefWidth="217.0" text="Description" />
+            <TableColumn fx:id="colUnitPrice" prefWidth="193.0" text="Unit Price" />
+        </columns>
+      </TableView>
+      <Text fill="#fffefe" layoutX="63.0" layoutY="453.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unit Price" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txtUnitPrice" layoutX="56.0" layoutY="474.0" prefHeight="51.0" prefWidth="300.0" style="-fx-background-radius: 30;" />
+      <Label fx:id="lblType" layoutX="668.0" layoutY="272.0" prefHeight="17.0" prefWidth="264.0" textFill="RED" />
+      <Label fx:id="lblUnitPrice" layoutX="69.0" layoutY="533.0" prefHeight="17.0" prefWidth="264.0" textFill="RED" />
+      <Label fx:id="lblDescription" layoutX="662.0" layoutY="388.0" prefHeight="17.0" prefWidth="264.0" textFill="RED" />
+      <Label fx:id="lblQty" layoutX="69.0" layoutY="388.0" prefHeight="17.0" prefWidth="264.0" textFill="RED" />
+      <ImageView fitHeight="23.0" fitWidth="20.0" layoutX="968.0" layoutY="488.0">
+         <image>
+            <Image url="@../assets/icons/save.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="23.0" fitWidth="31.0" layoutX="780.0" layoutY="488.0">
+         <image>
+            <Image url="@../assets/icons/update.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="32.0" fitWidth="37.0" layoutX="1055.0" layoutY="107.0">
+         <image>
+            <Image url="@../assets/icons/refresh.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="23.0" fitWidth="31.0" layoutX="1061.0" layoutY="198.0">
+         <image>
+            <Image url="@../assets/icons/trash.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

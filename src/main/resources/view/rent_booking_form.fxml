@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane fx:id="pagingPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="890.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.RentBookingFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#717744" height="890.0" stroke="BLACK" strokeType="INSIDE" width="1250.0" />
+      <Text fill="WHITE" layoutX="66.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome">
+         <font>
+            <Font name="Arial Bold" size="33.0" />
+         </font>
+      </Text>
+      <Line endX="1093.0" layoutX="157.0" layoutY="100.0" startX="-157.0" stroke="#079992" strokeWidth="2.0" />
+      <Text fill="WHITE" layoutX="53.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rent Booking" wrappingWidth="170.13671875">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Text>
+      <TableView fx:id="tblRentBookingCart" layoutX="29.0" layoutY="554.0" prefHeight="239.0" prefWidth="1192.0">
+         <columns>
+            <TableColumn fx:id="colRentId" prefWidth="166.0" text="Rent ID" />
+            <TableColumn fx:id="colDesc" prefWidth="175.0" text="Description" />
+            <TableColumn fx:id="colUnitPrice" prefWidth="175.0" text="Unit Price" />
+            <TableColumn fx:id="colQtyOnHand" prefWidth="175.0" text="Qty On Hand" />
+            <TableColumn fx:id="colQty" prefWidth="147.0" text="Qty" />
+            <TableColumn fx:id="colTotal" prefWidth="171.0" text="Total" />
+            <TableColumn fx:id="colAction" prefWidth="181.0" text="Action" />
+         </columns>
+      </TableView>
+      <Text fill="#fffefe" layoutX="45.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rent Booking ID:" wrappingWidth="144.87451171875">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Text>
+      <Label fx:id="lblBId" layoutX="205.0" layoutY="193.0" prefHeight="37.0" prefWidth="202.0" />
+      <Text fill="#fffefe" layoutX="564.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rent Booking Date:" wrappingWidth="160.0">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Text>
+      <Label fx:id="lblBDate" layoutX="745.0" layoutY="193.0" prefHeight="37.0" prefWidth="223.0" />
+      <Text fill="#fffefe" layoutX="45.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer ID:" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Text>
+      <JFXComboBox fx:id="cmbCId" layoutX="195.0" layoutY="252.0" onAction="#cmbCusOnAction" prefHeight="37.0" prefWidth="202.0" />
+      <JFXButton fx:id="btnNew" buttonType="RAISED" layoutX="426.0" layoutY="262.0" prefHeight="37.0" prefWidth="74.0" style="-fx-background-color: #373D20; -fx-background-radius: 10;" text="+ New" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </JFXButton>
+      <Text fill="#fffefe" layoutX="564.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Name:" wrappingWidth="152.13671875">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Text>
+      <Label fx:id="lblCName" layoutX="736.0" layoutY="262.0" prefHeight="37.0" prefWidth="223.0" />
+      <Text fill="#fffefe" layoutX="45.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rent ID:" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Text>
+      <JFXComboBox fx:id="cmbRentId" layoutX="195.0" layoutY="318.0" onAction="#cmbRentOnAction" prefHeight="37.0" prefWidth="202.0" />
+      <Text fill="#fffefe" layoutX="564.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Text>
+      <Label fx:id="lblDescription" layoutX="751.0" layoutY="337.0" prefHeight="37.0" prefWidth="223.0" />
+      <Text fill="#fffefe" layoutX="45.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unit Price:" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Text>
+      <Label fx:id="lblUnitPrice" layoutX="185.0" layoutY="405.0" prefHeight="37.0" prefWidth="223.0" />
+      <Text fill="#fffefe" layoutX="564.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Qty On Hand:" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Text>
+      <Label fx:id="lblQtyOHand" layoutX="760.0" layoutY="405.0" prefHeight="37.0" prefWidth="223.0" />
+      <Text fill="#fffefe" layoutX="45.0" layoutY="495.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Qty:" wrappingWidth="120.13671875">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txtQty" layoutX="185.0" layoutY="477.0" prefHeight="37.0" prefWidth="149.0" />
+      <JFXButton fx:id="btnAdToCart" buttonType="RAISED" layoutX="948.0" layoutY="467.0" onAction="#addToCartOnAction" prefHeight="48.0" prefWidth="160.0" style="-fx-background-color: #373D20; -fx-background-radius: 10;" text="Add To Cart" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </JFXButton>
+      <Label alignment="CENTER" layoutX="38.0" layoutY="822.0" prefHeight="37.0" prefWidth="99.0" text="Net Total:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btnPlaceOrder" buttonType="RAISED" layoutX="948.0" layoutY="817.0" prefHeight="48.0" prefWidth="160.0" style="-fx-background-color: #373D20; -fx-background-radius: 10;" text="Place Order" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnBack" buttonType="RAISED" layoutX="751.0" layoutY="817.0" prefHeight="48.0" prefWidth="133.0" style="-fx-background-color: #373D20; -fx-background-radius: 10;" text="Back" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </JFXButton>
+      <Label fx:id="lblNetTotal" layoutX="148.0" layoutY="822.0" prefHeight="37.0" prefWidth="223.0" />
+   </children>
+</Pane>
