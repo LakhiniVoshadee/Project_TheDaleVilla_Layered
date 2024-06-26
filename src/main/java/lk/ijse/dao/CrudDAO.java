@@ -1,7 +1,4 @@
-package lk.ijse.dao.custom;
-
-import lk.ijse.dao.SQLUtil;
-import lk.ijse.entity.Customer;
+package lk.ijse.dao;
 
 import java.sql.SQLException;
 import java.util.List;
