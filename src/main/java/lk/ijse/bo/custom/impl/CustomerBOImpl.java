@@ -1,7 +1,10 @@
 package lk.ijse.bo.custom.impl;
 
 import lk.ijse.bo.custom.CustomerBO;
+import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.CustomerDAO;
+import lk.ijse.entity.Customer;
+import lk.ijse.model.CustomerDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,21 +15,22 @@ import java.util.List;
 
 public class CustomerBOImpl implements CustomerBO {
 
-    CustomerDAO customerDAO = (CustomerDAO) DAO
+    CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
     @Override
-    public  boolean delete(String id) throws SQLException {
+    public  boolean delete(String id) throws SQLException, ClassNotFoundException {
        /* String sql = "delete from customer where CusId=?";
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
         pstm.setObject(1,id);
 
         return pstm.executeUpdate()>0;*/
-        return cust
+        return customerDAO.delete(id);
     }
 
 
+    @Override
 
-    public static boolean update(Customer customer) throws SQLException {
-        String sql = "UPDATE customer SET Name = ?, sex = ?, Nic =?, Contact =?, Email =? WHERE CusId=? ";
+    public  boolean update(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+        /*String sql = "UPDATE customer SET Name = ?, sex = ?, Nic =?, Contact =?, Email =? WHERE CusId=? ";
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
 
         pstm.setString(1,customer.getCusName());
@@ -36,11 +40,12 @@ public class CustomerBOImpl implements CustomerBO {
         pstm.setString(5,customer.getEmail());
         pstm.setString(6,customer.getCusID());
 
-        return pstm.executeUpdate()>0;
+        return pstm.executeUpdate()>0;*/
+        return customerDAO.update(new Customer(dto.getCusID(),dto.getCusName(),dto.getSex(),dto.getNic(),dto.getContact(),dto.getEmail(),dto.getEmail()));
     }
-
-    public static String generateNextId() throws SQLException {
-        String sql = "SELECT CusID FROM customer ORDER BY CusID DESC LIMIT 1";
+  @Override
+    public  String generateNextId() throws SQLException, ClassNotFoundException {
+       /* String sql = "SELECT CusID FROM customer ORDER BY CusID DESC LIMIT 1";
         Connection connection = Dbconnection.getInstance().getConnection();
         ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
 
@@ -49,11 +54,12 @@ public class CustomerBOImpl implements CustomerBO {
             id = resultSet.getString(1);
             return splitId(null);
         }
-        return splitId(null);
+        return splitId(null);*/
+      return customerDAO.generateNextId();
 
     }
 
-    private static String splitId(String id) {
+     String splitId(String id) {
         if (id != null){
             String[] ids = id.split("Cus ");
             int CusId = Integer.parseInt(ids[1]);
@@ -64,8 +70,9 @@ public class CustomerBOImpl implements CustomerBO {
 
     }
 
-    public static boolean save(Customer customer) throws SQLException {
-        String sql = "insert into customer values(?,?,?,?,?,?,?)";
+    @Override
+    public  boolean save(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+        /*String sql = "insert into customer values(?,?,?,?,?,?,?)";
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
 
         pstm.setObject(1,customer.getCusID());
@@ -76,12 +83,13 @@ public class CustomerBOImpl implements CustomerBO {
         pstm.setObject(6,customer.getEmail());
         pstm.setObject(7, UserModel.Uid);
 
-        return pstm.executeUpdate()>0;
+        return pstm.executeUpdate()>0;*/
+        return customerDAO.save(new Customer(dto.getCusID(),dto.getCusName(),dto.getSex(),dto.getNic(),dto.getContact(),dto.getEmail(),dto.UserID));
 
     }
-
-    public static List<String> getIds() throws SQLException {
-        String sql = "SELECT CusID FROM customer";
+  @Override
+    public ArrayList<CustomerDTO> getIds() throws SQLException, ClassNotFoundException {
+      /*  String sql = "SELECT CusID FROM customer";
 
         Connection connection = Dbconnection.getInstance().getConnection();
         ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
@@ -92,11 +100,18 @@ public class CustomerBOImpl implements CustomerBO {
             idList.add(resultSet.getString(1));
 
         }
-        return idList;
-    }
+        return idList;*/
+      ArrayList<CustomerDTO>allCustomers = new ArrayList<>();
+      ArrayList<Customer>all = (ArrayList<Customer>) customerDAO.getAll();
+      for (Customer c : all){
+          allCustomers.add(new CustomerDTO(c.getCusID(),c.getCusName(),c.getSex(),c.getNic(),c.getContact(),c.getEmail(),c.getUserID()));
+      }
+      return allCustomers;
 
-    public static Customer searchCustomer(String cId) throws SQLException {
-        String sql = "select * from customer where CusId=?";
+    }
+  @Override
+    public  boolean searchCustomer(String cId) throws SQLException {
+       /* String sql = "select * from customer where CusId=?";
 
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
         pstm.setObject(1,cId);
@@ -115,7 +130,8 @@ public class CustomerBOImpl implements CustomerBO {
 
             customer = new Customer(cusID,cusName,sex,nic,contact,email,UserID);
         }
-        return customer;
+        return customer;*/
+
     }
 
     public List<Customer> getCustomer() throws SQLException {

@@ -1,4 +1,6 @@
 package lk.ijse.dao.custom.impl;
 
-public class RentDAOImpl {
+import lk.ijse.dao.custom.RentDAO;
+
+public class RentDAOImpl implements RentDAO {
 }
