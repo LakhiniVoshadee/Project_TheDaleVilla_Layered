@@ -1,8 +1,8 @@
-drop database if exists theDaleVilla;
+drop database if exists theDaleVillaNew;
 
-create database theDaleVilla;
+create database theDaleVillaNew;
 
-use theDaleVilla;
+use theDaleVillaNew;
 
 create table Admin(
                       UserId varchar(20)primary key,
