@@ -16,8 +16,9 @@ import java.util.List;
 public class CustomerBOImpl implements CustomerBO {
 
     CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
+
     @Override
-    public  boolean delete(String id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
        /* String sql = "delete from customer where CusId=?";
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
         pstm.setObject(1,id);
@@ -29,7 +30,7 @@ public class CustomerBOImpl implements CustomerBO {
 
     @Override
 
-    public  boolean update(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean update(CustomerDTO dto) throws SQLException, ClassNotFoundException {
         /*String sql = "UPDATE customer SET Name = ?, sex = ?, Nic =?, Contact =?, Email =? WHERE CusId=? ";
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
 
@@ -41,10 +42,11 @@ public class CustomerBOImpl implements CustomerBO {
         pstm.setString(6,customer.getCusID());
 
         return pstm.executeUpdate()>0;*/
-        return customerDAO.update(new Customer(dto.getCusID(),dto.getCusName(),dto.getSex(),dto.getNic(),dto.getContact(),dto.getEmail(),dto.getEmail()));
+        return customerDAO.update(new Customer(dto.getCusID(), dto.getCusName(), dto.getSex(), dto.getNic(), dto.getContact(), dto.getEmail(), dto.getEmail()));
     }
-  @Override
-    public  String generateNextId() throws SQLException, ClassNotFoundException {
+
+    @Override
+    public String generateNextId() throws SQLException, ClassNotFoundException {
        /* String sql = "SELECT CusID FROM customer ORDER BY CusID DESC LIMIT 1";
         Connection connection = Dbconnection.getInstance().getConnection();
         ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
@@ -55,23 +57,25 @@ public class CustomerBOImpl implements CustomerBO {
             return splitId(null);
         }
         return splitId(null);*/
-      return customerDAO.generateNextId();
-
-    }
-
-     String splitId(String id) {
-        if (id != null){
-            String[] ids = id.split("Cus ");
-            int CusId = Integer.parseInt(ids[1]);
-            CusId++;
-            return "Cus " + CusId;
-        }
-        return "Cus 1";
+        return customerDAO.generateNextId();
 
     }
 
     @Override
-    public  boolean save(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+    public String splitId(String id) {
+        String result = "Cus 1";
+        if (id != null) {
+            String[] ids = id.split("Cus ");
+            int CusId = Integer.parseInt(ids[1]);
+            CusId++;
+            result = "Cus " + CusId;
+        }
+
+        return result;
+    }
+
+    @Override
+    public boolean save(CustomerDTO dto) throws SQLException, ClassNotFoundException {
         /*String sql = "insert into customer values(?,?,?,?,?,?,?)";
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
 
@@ -84,10 +88,11 @@ public class CustomerBOImpl implements CustomerBO {
         pstm.setObject(7, UserModel.Uid);
 
         return pstm.executeUpdate()>0;*/
-        return customerDAO.save(new Customer(dto.getCusID(),dto.getCusName(),dto.getSex(),dto.getNic(),dto.getContact(),dto.getEmail(),dto.UserID));
+        return customerDAO.save(new Customer(dto.getCusID(), dto.getCusName(), dto.getSex(), dto.getNic(), dto.getContact(), dto.getEmail(), dto.UserID));
 
     }
-  @Override
+
+    @Override
     public ArrayList<CustomerDTO> getIds() throws SQLException, ClassNotFoundException {
       /*  String sql = "SELECT CusID FROM customer";
 
@@ -101,16 +106,22 @@ public class CustomerBOImpl implements CustomerBO {
 
         }
         return idList;*/
-      ArrayList<CustomerDTO>allCustomers = new ArrayList<>();
-      ArrayList<Customer>all = (ArrayList<Customer>) customerDAO.getAll();
-      for (Customer c : all){
-          allCustomers.add(new CustomerDTO(c.getCusID(),c.getCusName(),c.getSex(),c.getNic(),c.getContact(),c.getEmail(),c.getUserID()));
-      }
-      return allCustomers;
+        ArrayList<CustomerDTO> allCustomers = new ArrayList<>();
+        ArrayList<Customer> all = (ArrayList<Customer>) customerDAO.getAll();
+        for (Customer c : all) {
+            allCustomers.add(new CustomerDTO(c.getCusID(), c.getCusName(), c.getSex(), c.getNic(), c.getContact(), c.getEmail(), c.getUserID()));
+        }
+        return allCustomers;
 
     }
-  @Override
-    public  boolean searchCustomer(String cId) throws SQLException {
+
+    @Override
+    public CustomerDTO searchCustomer(String cId) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public boolean search(CustomerDTO dto) throws SQLException, ClassNotFoundException {
        /* String sql = "select * from customer where CusId=?";
 
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
@@ -131,11 +142,12 @@ public class CustomerBOImpl implements CustomerBO {
             customer = new Customer(cusID,cusName,sex,nic,contact,email,UserID);
         }
         return customer;*/
+        return customerDAO.search(String.valueOf(new Customer(dto.getCusID(), dto.getCusName(), dto.getSex(), dto.getNic(), dto.getContact(), dto.getEmail(), dto.UserID)));
 
     }
 
-    public List<Customer> getCustomer() throws SQLException {
-        String sql = "select * from customer";
+    public ArrayList<CustomerDTO> getCustomer() throws SQLException, ClassNotFoundException {
+       /* String sql = "select * from customer";
 
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
 
@@ -154,11 +166,22 @@ public class CustomerBOImpl implements CustomerBO {
             Customer customer = new Customer(cusId,cusName,sex,nic,contact,email,userID);
             customerList.add(customer);
         }
-        return customerList;
+        return customerList;*/
+        ArrayList<CustomerDTO> allCustomers = new ArrayList<>();
+        ArrayList<Customer> all = (ArrayList<Customer>) customerDAO.getAll();
+        for (Customer c : all) {
+            allCustomers.add(new CustomerDTO(c.getCusID(), c.getCusName(), c.getSex(), c.getNic(), c.getContact(), c.getEmail(), c.getUserID()));
+        }
+        return allCustomers;
     }
 
+    @Override
     public int countCustomer() throws SQLException {
-        Connection connection = Dbconnection.getInstance().getConnection();
+        return 0;
+    }
+
+    public int count() throws SQLException, ClassNotFoundException {
+       /* Connection connection = Dbconnection.getInstance().getConnection();
         String sql = "select count(CusID) as customer_count from customer";
 
         PreparedStatement pstm = connection.prepareStatement(sql);
@@ -169,5 +192,7 @@ public class CustomerBOImpl implements CustomerBO {
             return customerCount;
         }
         return Integer.parseInt(null);
+    }*/
+        return customerDAO.count();
     }
 }

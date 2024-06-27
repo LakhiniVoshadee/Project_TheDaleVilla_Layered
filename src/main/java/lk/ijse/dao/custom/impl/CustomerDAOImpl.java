@@ -112,7 +112,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
  @Override
 
- public Customer search(String cId) throws SQLException, ClassNotFoundException {
+ public boolean search(String cId) throws SQLException, ClassNotFoundException {
       /*  String sql = "select * from customer where CusId=?";
 
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
