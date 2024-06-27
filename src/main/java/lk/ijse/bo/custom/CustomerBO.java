@@ -13,13 +13,13 @@ public interface CustomerBO extends SuperBO {
 
 
 
-    public static boolean update(Customer dto) throws SQLException, ClassNotFoundException;
+    public  boolean update(Customer dto) throws SQLException, ClassNotFoundException;
 
-    public static String generateNextId() throws SQLException, ClassNotFoundException;
+    public  String generateNextId() throws SQLException, ClassNotFoundException;
 
-     String splitId(String id) ;
+    // String splitId(String id) ;
 
-    public static boolean save(Customer dto) throws SQLException, ClassNotFoundException;
+    public  boolean save(Customer dto) throws SQLException, ClassNotFoundException;
 
     public ArrayList<CustomerDTO> getIds() throws SQLException, ClassNotFoundException;
 

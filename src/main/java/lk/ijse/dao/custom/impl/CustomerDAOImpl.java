@@ -10,6 +10,7 @@ import lk.ijse.dao.SQLUtil;
 import lk.ijse.dao.custom.CustomerDAO;
 import lk.ijse.entity.Customer;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -55,24 +56,30 @@ public class CustomerDAOImpl implements CustomerDAO {
             return splitId(null);
         }
         return splitId(null);*/
-
-  return SQLUtil.execute("SELECT CusID FROM customer ORDER BY CusID DESC LIMIT 1");
+  ResultSet rs = SQLUtil.execute("SELECT CusID FROM customer ORDER BY CusID DESC LIMIT 1");
+  if (rs.next()) {
+   String id = rs.getString("id");
+   int newCustomerId = Integer.parseInt(id.replace("C00-", "")) + 1;
+   return String.format("C00-%03d", newCustomerId);
+  }else {
+   return "C00-001";
+  }
 
  }
 
- @Override
+ /*@Override
  public String splitId(String id) throws SQLException, ClassNotFoundException {
-       /* if (id != null){
+       *//* if (id != null){
             String[] ids = id.split("Cus ");
             int CusId = Integer.parseInt(ids[1]);
             CusId++;
             return "Cus " + CusId;
         }
-        return "Cus 1";*/
+        return "Cus 1";*//*
   return SQLUtil.execute("");
 
  }
-
+*/
  @Override
  public boolean save(Customer customer) throws SQLException, ClassNotFoundException {
        /* String sql = "insert into customer values(?,?,?,?,?,?,?)";
@@ -168,16 +175,16 @@ public class CustomerDAOImpl implements CustomerDAO {
        /* Connection connection = Dbconnection.getInstance().getConnection();
         String sql = "select count(CusID) as customer_count from customer";
 
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        ResultSet resultSet = pstm.executeQuery();
+        PreparedStatement pstm = connection.prepareStatement(sql);*/
+        ResultSet resultSet = SQLUtil.execute("select count(CusID) as customer_count from customer");
 
         if (resultSet.next()){
-            int customerCount = Integer.parseInt(resultSet.getString("customer_count"));
+            int customerCount = Integer.parseInt(resultSet.getString(1));
             return customerCount;
         }
         return Integer.parseInt(null);
-    }*/
-  return SQLUtil.execute("select count(CusID) as customer_count from customer");
+    }
+
  }
-}
+
 

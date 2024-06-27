@@ -11,7 +11,7 @@ public interface CrudDAO <T> extends SuperDAO{
 
     public  String generateNextId() throws SQLException, ClassNotFoundException;
 
-    public   String splitId(String id) throws SQLException, ClassNotFoundException;
+   // public   String splitId(String id) throws SQLException, ClassNotFoundException;
 
     public  boolean save(T entity) throws SQLException, ClassNotFoundException;
 

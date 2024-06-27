@@ -152,7 +152,7 @@ public class CustomerFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         try{
-            txtCusId.setText(CustomerBO.generateNextId());
+            txtCusId.setText(customerBO.generateNextId());
         }catch (SQLException e){
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -265,7 +265,7 @@ public class CustomerFormController implements Initializable {
 
                             try {
                                 System.out.println(customer);
-                                boolean isSaved = CustomerBO.save(customer);
+                                boolean isSaved = customerBO.save(customer);
                                 if (isSaved) {
                                     new Alert(Alert.AlertType.CONFIRMATION, "Customer saved successfully").show();
                                     loadCustomerTable();
@@ -305,7 +305,7 @@ public class CustomerFormController implements Initializable {
         Customer customer = new Customer(id, name, sex, nic, contact, email, userId);
 
         try {
-            boolean isUpdated = CustomerBO.update(customer);
+            boolean isUpdated = customerBO.update(customer);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer updated successfully").show();
                 loadCustomerTable();

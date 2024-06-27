@@ -6,14 +6,10 @@ import lk.ijse.dao.custom.CustomerDAO;
 import lk.ijse.entity.Customer;
 import lk.ijse.model.CustomerDTO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class CustomerBOImpl implements CustomerBO {
+public  class CustomerBOImpl implements CustomerBO {
 
     CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
 
@@ -27,8 +23,18 @@ public class CustomerBOImpl implements CustomerBO {
         return customerDAO.delete(id);
     }
 
-
     @Override
+    public boolean update(Customer dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    /*@Override
+    public boolean update(Customer dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+*/
+
+
 
     public boolean update(CustomerDTO dto) throws SQLException, ClassNotFoundException {
         /*String sql = "UPDATE customer SET Name = ?, sex = ?, Nic =?, Contact =?, Email =? WHERE CusId=? ";
@@ -45,7 +51,7 @@ public class CustomerBOImpl implements CustomerBO {
         return customerDAO.update(new Customer(dto.getCusID(), dto.getCusName(), dto.getSex(), dto.getNic(), dto.getContact(), dto.getEmail(), dto.getEmail()));
     }
 
-    @Override
+
     public String generateNextId() throws SQLException, ClassNotFoundException {
        /* String sql = "SELECT CusID FROM customer ORDER BY CusID DESC LIMIT 1";
         Connection connection = Dbconnection.getInstance().getConnection();
@@ -61,7 +67,7 @@ public class CustomerBOImpl implements CustomerBO {
 
     }
 
-    @Override
+   /* @Override
     public String splitId(String id) {
         String result = "Cus 1";
         if (id != null) {
@@ -72,10 +78,20 @@ public class CustomerBOImpl implements CustomerBO {
         }
 
         return result;
-    }
+    }*/
+
+
+  
+/*
 
     @Override
-    public boolean save(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean save(Customer dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+*/
+
+
+    public boolean save(Customer dto) throws SQLException, ClassNotFoundException {
         /*String sql = "insert into customer values(?,?,?,?,?,?,?)";
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
 
