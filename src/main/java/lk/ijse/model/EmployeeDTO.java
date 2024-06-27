@@ -8,7 +8,7 @@ public class EmployeeDTO {
     private String DOB;
     private String UserID;
 
-    public EmployeeDTO() {
+    public EmployeeDTO(String empID, String name, String type, String dob, String email) {
     }
 
     public EmployeeDTO(String empID, String name, String type, String email, String DOB, String userID) {

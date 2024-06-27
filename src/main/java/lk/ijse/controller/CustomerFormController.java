@@ -136,7 +136,7 @@ public class CustomerFormController implements Initializable {
         //CustomerRepo customerRepo = new CustomerRepo();
 
         try {
-            boolean isDeleted = customerBO.delete(id);
+            boolean isDeleted = customerBO.deleteCustomer(id);
             if (isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer deleted successfully").show();
                 loadCustomerTable();
@@ -265,7 +265,7 @@ public class CustomerFormController implements Initializable {
 
                             try {
                                 System.out.println(customer);
-                                boolean isSaved = customerBO.save(customer);
+                                boolean isSaved = customerBO.saveCustomer(customer);
                                 if (isSaved) {
                                     new Alert(Alert.AlertType.CONFIRMATION, "Customer saved successfully").show();
                                     loadCustomerTable();
@@ -305,7 +305,7 @@ public class CustomerFormController implements Initializable {
         Customer customer = new Customer(id, name, sex, nic, contact, email, userId);
 
         try {
-            boolean isUpdated = customerBO.update(customer);
+            boolean isUpdated = customerBO.updateCustomer(customer);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer updated successfully").show();
                 loadCustomerTable();

@@ -2,20 +2,16 @@ package lk.ijse.dao.custom.impl;
 
 import lk.ijse.dao.SQLUtil;
 import lk.ijse.dao.custom.EmployeeDAO;
-import lk.ijse.db.Dbconnection;
 import lk.ijse.entity.Employee;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
-    public  String generateNextId() throws SQLException, ClassNotFoundException {
+    public String generateNextId() throws SQLException, ClassNotFoundException {
         /*String sql = "Select EmpID from employee order by EmpID desc limit 1 ";
         Connection connection = Dbconnection.getInstance().getConnection();
         ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
@@ -30,9 +26,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         ResultSet rst = SQLUtil.execute("Select EmpID from employee order by EmpID desc limit 1");
         if (rst.next()) {
             String id = rst.getString("id");
-            int newEmpID = Integer.parseInt(id.replace("E00-",""))+1;
-            return String.format("E00-%s",newEmpID);
-        }else {
+            int newEmpID = Integer.parseInt(id.replace("E00-", "")) + 1;
+            return String.format("E00-%s", newEmpID);
+        } else {
             return "E00-001";
         }
     }
@@ -65,7 +61,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public  boolean update(Employee employee) throws SQLException, ClassNotFoundException {
+    public boolean update(Employee employee) throws SQLException, ClassNotFoundException {
        /* String sql = "UPDATE employee SET Name = ?,Type = ?,DOB = ?,Email = ?,UserID = ? WHERE EmpId = ? ";
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
 
@@ -82,10 +78,38 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
 
+    /*  public List<Employee> getEmployee() throws SQLException, ClassNotFoundException {
+          String sql = "SELECT * FROM employee";
+          ResultSet resultSet = Dbconnection.getInstance().getConnection().prepareStatement(sql).executeQuery();
+          List<Employee> employeeList = new ArrayList<>();
+          while (resultSet.next()) {
+              employeeList.add(new Employee(
+                      resultSet.getString(1),
+                      resultSet.getString(2),
+                      resultSet.getString(3),
+                      resultSet.getString(4),
+                      resultSet.getString(5),
+                      resultSet.getString(6)
 
+              ));
+          }
+          return employeeList;
+      }
+  */
+    @Override
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+       /* String sql = "DELETE FROM employee WHERE EmpID = ?";
+        PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
 
-  /*  public List<Employee> getEmployee() throws SQLException, ClassNotFoundException {
-        String sql = "SELECT * FROM employee";
+        pstm.setObject(1,id);
+
+        return pstm.executeUpdate() > 0;*/
+        return SQLUtil.execute("DELETE FROM employee WHERE EmpID = ?");
+    }
+
+    @Override
+    public List<String> getIds() throws SQLException, ClassNotFoundException {
+       /* String sql = "SELECT * FROM employee";
         ResultSet resultSet = Dbconnection.getInstance().getConnection().prepareStatement(sql).executeQuery();
         List<Employee> employeeList = new ArrayList<>();
         while (resultSet.next()) {
@@ -100,16 +124,22 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             ));
         }
         return employeeList;
+    }*/
+        return SQLUtil.execute("SELECT * FROM employee");
     }
-*/
+
     @Override
-    public boolean delete(String id) throws SQLException, ClassNotFoundException {
-       /* String sql = "DELETE FROM employee WHERE EmpID = ?";
-        PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
+    public boolean search(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
 
-        pstm.setObject(1,id);
+    @Override
+    public List<Employee> getAll() throws SQLException, ClassNotFoundException {
+        return List.of();
+    }
 
-        return pstm.executeUpdate() > 0;*/
-        return SQLUtil.execute("DELETE FROM employee WHERE EmpID = ?");
+    @Override
+    public int count() throws SQLException, ClassNotFoundException {
+        return 0;
     }
 }
