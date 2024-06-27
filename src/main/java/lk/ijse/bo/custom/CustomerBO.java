@@ -1,6 +1,7 @@
 package lk.ijse.bo.custom;
 
 import lk.ijse.bo.SuperBO;
+import lk.ijse.entity.Customer;
 import lk.ijse.model.CustomerDTO;
 
 import java.sql.SQLException;
@@ -12,13 +13,13 @@ public interface CustomerBO extends SuperBO {
 
 
 
-    public  boolean update(CustomerDTO dto) throws SQLException, ClassNotFoundException;
+    public static boolean update(Customer dto) throws SQLException, ClassNotFoundException;
 
-    public  String generateNextId() throws SQLException, ClassNotFoundException;
+    public static String generateNextId() throws SQLException, ClassNotFoundException;
 
      String splitId(String id) ;
 
-    public  boolean save(CustomerDTO dto) throws SQLException, ClassNotFoundException;
+    public static boolean save(Customer dto) throws SQLException, ClassNotFoundException;
 
     public ArrayList<CustomerDTO> getIds() throws SQLException, ClassNotFoundException;
 

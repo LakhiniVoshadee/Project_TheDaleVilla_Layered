@@ -13,11 +13,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import lk.ijse.thedale.model.Customer;
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.custom.CustomerBO;
+import lk.ijse.entity.Customer;
+import lk.ijse.model.CustomerDTO;
+import lk.ijse.tdm.CustomerTM;
+/*import lk.ijse.thedale.model.Customer;
 import lk.ijse.thedale.repository.CustomerRepo;
 import lk.ijse.thedale.tm.CustomerTm;
 import lk.ijse.thedale.util.DataValidateController;
-import lk.ijse.thedale.util.Validation;
+import lk.ijse.thedale.util.Validation;*/
+import lk.ijse.util.DataValidateController;
+import lk.ijse.util.Validation;
 //import lk.ijse.thedale.util.Validation;
 
 
@@ -53,7 +60,7 @@ public class CustomerFormController implements Initializable {
     private Pane pagingPane;
 
     @FXML
-    private TableView<CustomerTm> tblCustomer;
+    private TableView<CustomerTM> tblCustomer;
 
     @FXML
     private TextField txtContact;
@@ -102,9 +109,9 @@ public class CustomerFormController implements Initializable {
         return controller;
     }
 
-    CustomerRepo customerRepo = new CustomerRepo();
+   // CustomerRepo customerRepo = new CustomerRepo();
 
-    private List<Customer> customerList = new ArrayList<>();
+    private List<CustomerDTO> customerList = new ArrayList<>();
 
     // LinkedHashMap<TextField, Pattern> map =new LinkedHashMap();
 
@@ -126,28 +133,36 @@ public class CustomerFormController implements Initializable {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String id = txtCusId.getText();
-        CustomerRepo customerRepo = new CustomerRepo();
+        //CustomerRepo customerRepo = new CustomerRepo();
 
         try {
-            boolean isDeleted = customerRepo.delete(id);
+            boolean isDeleted = customerBO.delete(id);
             if (isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer deleted successfully").show();
                 loadCustomerTable();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
 
     }
-
+      CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         try{
-            txtCusId.setText(CustomerRepo.generateNextId());
+            txtCusId.setText(CustomerBO.generateNextId());
         }catch (SQLException e){
             throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
-        this.customerList=getAllCustomer();
+        try {
+            this.customerList=getAllCustomer();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         setCellValueFactory();
         loadCustomerTable();
 
@@ -172,7 +187,7 @@ public class CustomerFormController implements Initializable {
     void customerTableClick(MouseEvent event) {
         TablePosition pos = tblCustomer.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
-        ObservableList<TableColumn<CustomerTm,?>> columns = tblCustomer.getColumns();
+        ObservableList<TableColumn<CustomerTM, ?>> columns = tblCustomer.getColumns();
 
         txtCusId.setText(columns.get(0).getCellData(row).toString());
         txtCusName.setText(columns.get(1).getCellData(row).toString());
@@ -184,26 +199,19 @@ public class CustomerFormController implements Initializable {
     }
 
     private void loadCustomerTable() {
-        CustomerRepo customerRepo = new CustomerRepo();
-        ObservableList<CustomerTm>tmList = FXCollections.observableArrayList();
+       // CustomerRepo customerRepo = new CustomerRepo();
+        ObservableList<CustomerDTO>allCustomers = FXCollections.observableArrayList();
         try {
-            List<Customer> customerList = customerRepo.getCustomer();
-            for (Customer customer : customerList) {
-                CustomerTm customerTm = new CustomerTm(
-                        customer.getCusID(),
-                        customer.getCusName(),
-                        customer.getSex(),
-                        customer.getNic(),
-                        customer.getContact(),
-                        customer.getEmail(),
-                        customer.getUserID()
-
-                );
-                tmList.add(customerTm);
+            List<CustomerDTO> customerList = customerBO.getCustomer();
+            for (CustomerDTO customer : customerList) {
+                tblCustomer.getItems().add(new CustomerTM(customer.getCusID(), customer.getCusName(), customer.getSex(), customer.getNic(), customer.getContact(), customer.getEmail(), customer.getUserID()));
+               // tmList.add(customerTm);
             }
-            tblCustomer.setItems(tmList);
+           // tblCustomer.setItems(tmList);
         }catch (SQLException e){
             new Alert(Alert.AlertType.ERROR,"Something went wrong").show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
 
     }
@@ -218,10 +226,10 @@ public class CustomerFormController implements Initializable {
 
     }
 
-    private List<Customer> getAllCustomer() {
-        List<Customer>customerList = null;
+    private List<CustomerDTO> getAllCustomer() throws ClassNotFoundException {
+        List<CustomerDTO>customerList = null;
         try {
-            customerList = customerRepo.getCustomer();
+            customerList = customerBO.getCustomer();
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
@@ -239,6 +247,7 @@ public class CustomerFormController implements Initializable {
         LoginFormController userId = LoginFormController.getInstance();
 
         Customer customer = new Customer(id, name, sex, nic, contact, email, userId.userId);
+       // DataValidateController DataValidateController = new DataValidateController();
         if (DataValidateController.validateCusNIC(txtNic.getText())) {
             lblCusNic.setText("");
 
@@ -256,13 +265,15 @@ public class CustomerFormController implements Initializable {
 
                             try {
                                 System.out.println(customer);
-                                boolean isSaved = CustomerRepo.save(customer);
+                                boolean isSaved = CustomerBO.save(customer);
                                 if (isSaved) {
                                     new Alert(Alert.AlertType.CONFIRMATION, "Customer saved successfully").show();
                                     loadCustomerTable();
                                 }
                             } catch (SQLException e) {
                                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+                            } catch (ClassNotFoundException e) {
+                                throw new RuntimeException(e);
                             }
                         } else {
                             lblCusEmail.setText("Invalid Email");
@@ -294,13 +305,15 @@ public class CustomerFormController implements Initializable {
         Customer customer = new Customer(id, name, sex, nic, contact, email, userId);
 
         try {
-            boolean isUpdated = CustomerRepo.update(customer);
+            boolean isUpdated = CustomerBO.update(customer);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer updated successfully").show();
                 loadCustomerTable();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
