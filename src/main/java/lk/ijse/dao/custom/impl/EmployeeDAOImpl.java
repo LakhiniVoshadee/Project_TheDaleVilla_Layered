@@ -6,6 +6,7 @@ import lk.ijse.entity.Employee;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
@@ -22,7 +23,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             return splitId(id);
         }
         return splitId(null);*/
-
+/*
         ResultSet rst = SQLUtil.execute("Select EmpID from employee order by EmpID desc limit 1");
         if (rst.next()) {
             String id = rst.getString("id");
@@ -30,7 +31,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             return String.format("E00-%s", newEmpID);
         } else {
             return "E00-001";
-        }
+        }*/
+
+        return SQLUtil.execute("Select EmpID from employee order by EmpID desc limit 1");
     }
 
    /* private static String splitId(String id) {
@@ -44,7 +47,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }*/
 
     @Override
-    public boolean save(Employee employee) throws SQLException, ClassNotFoundException {
+    public boolean save(Employee entity) throws SQLException, ClassNotFoundException {
        /* String sql = "INSERT INTO employee VALUES (?,?,?,?,?,?)";
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
 
@@ -56,12 +59,18 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         pstm.setObject(6, employee.getUserID());
 
         return pstm.executeUpdate() > 0;*/
-        return SQLUtil.execute("INSERT INTO employee VALUES (?,?,?,?,?,?)");
+        return SQLUtil.execute("INSERT INTO employee VALUES (?,?,?,?,?,?)",
+                entity.getEmpID(),
+                entity.getName(),
+                entity.getType(),
+                entity.getEmail(),
+                entity.getDOB());
+
 
     }
 
     @Override
-    public boolean update(Employee employee) throws SQLException, ClassNotFoundException {
+    public boolean update(Employee entity) throws SQLException, ClassNotFoundException {
        /* String sql = "UPDATE employee SET Name = ?,Type = ?,DOB = ?,Email = ?,UserID = ? WHERE EmpId = ? ";
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
 
@@ -74,7 +83,12 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
         return pstm.executeUpdate() > 0;*/
 
-        return SQLUtil.execute("UPDATE employee SET Name = ?,Type = ?,DOB = ?,Email = ?,UserID = ? WHERE EmpId = ?");
+        return SQLUtil.execute("UPDATE employee SET Name = ?,Type = ?,DOB = ?,Email = ?,UserID = ? WHERE EmpId = ?",
+                entity.getName(),
+                entity.getType(),
+                entity.getDOB(),
+                entity.getEmail(),
+                entity.getEmpID());
     }
 
 
@@ -134,8 +148,20 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public List<Employee> getAll() throws SQLException, ClassNotFoundException {
-        return List.of();
+    public ArrayList<Employee> getAll() throws SQLException, ClassNotFoundException {
+        ArrayList<Employee> allEmployees = new ArrayList<>();
+        ResultSet rs = SQLUtil.execute("SELECT * FROM employee");
+        while (rs.next()) {
+            Employee employee = new Employee(
+                    rs.getString("EmpId"),
+                    rs.getString("Name"),
+                    rs.getString("Type"),
+                    rs.getString("Email"),
+                    rs.getString("DOB")
+            );
+            allEmployees.add(employee);
+        }
+        return allEmployees;
     }
 
     @Override

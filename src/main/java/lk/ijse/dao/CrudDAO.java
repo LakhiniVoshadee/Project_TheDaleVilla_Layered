@@ -1,6 +1,7 @@
 package lk.ijse.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface CrudDAO <T> extends SuperDAO{
@@ -19,7 +20,7 @@ public interface CrudDAO <T> extends SuperDAO{
 
     public boolean search(String id) throws SQLException, ClassNotFoundException;
 
-    public List<T> getAll() throws SQLException, ClassNotFoundException;
+    public ArrayList<T> getAll() throws SQLException, ClassNotFoundException;
 
     public int count() throws SQLException, ClassNotFoundException;
 }

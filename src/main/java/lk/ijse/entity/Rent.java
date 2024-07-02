@@ -8,7 +8,7 @@ public class Rent {
     // private String QtyOnHand;
     private double UnitPrice;
 
-    public Rent() {
+    public Rent(String rentID, int qty, String description, String type, double unitPrice) {
     }
 
     public Rent(String rentID, String type, int qty, String description, double unitPrice) {

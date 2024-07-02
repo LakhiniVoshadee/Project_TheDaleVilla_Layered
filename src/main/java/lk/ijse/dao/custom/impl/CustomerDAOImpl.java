@@ -12,6 +12,7 @@ import lk.ijse.entity.Customer;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDAOImpl implements CustomerDAO {
@@ -28,7 +29,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 
  @Override
- public boolean update(Customer customer) throws SQLException, ClassNotFoundException {
+ public boolean update(Customer entity) throws SQLException, ClassNotFoundException {
        /* String sql = "UPDATE customer SET Name = ?, sex = ?, Nic =?, Contact =?, Email =? WHERE CusId=? ";
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
 
@@ -41,12 +42,18 @@ public class CustomerDAOImpl implements CustomerDAO {
 
         return pstm.executeUpdate()>0;*/
 
-  return SQLUtil.execute("UPDATE customer SET Name = ?, sex = ?, Nic =?, Contact =?, Email =? WHERE CusId=?");
+  return SQLUtil.execute("UPDATE customer SET Name = ?, sex = ?, Nic =?, Contact =?, Email =? WHERE CusId=?",
+          entity.getCusName(),
+          entity.getSex(),
+          entity.getNic(),
+          entity.getContact(),
+          entity.getEmail(),
+          entity.getCusID());
  }
 
  @Override
  public String generateNextId() throws SQLException, ClassNotFoundException {
-      /*  String sql = "SELECT CusID FROM customer ORDER BY CusID DESC LIMIT 1";
+        /*String sql = "SELECT CusID FROM customer ORDER BY CusID DESC LIMIT 1";
         Connection connection = Dbconnection.getInstance().getConnection();
         ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
 
@@ -55,7 +62,7 @@ public class CustomerDAOImpl implements CustomerDAO {
             id = resultSet.getString(1);
             return splitId(null);
         }
-        return splitId(null);*/
+        return splitId(null);
   ResultSet rs = SQLUtil.execute("SELECT CusID FROM customer ORDER BY CusID DESC LIMIT 1");
   if (rs.next()) {
    String id = rs.getString("id");
@@ -63,7 +70,9 @@ public class CustomerDAOImpl implements CustomerDAO {
    return String.format("C00-%03d", newCustomerId);
   }else {
    return "C00-001";
-  }
+  }*/
+
+  return SQLUtil.execute("SELECT CusID FROM customer ORDER BY CusID DESC LIMIT 1");
 
  }
 
@@ -81,7 +90,7 @@ public class CustomerDAOImpl implements CustomerDAO {
  }
 */
  @Override
- public boolean save(Customer customer) throws SQLException, ClassNotFoundException {
+ public boolean save(Customer entity) throws SQLException, ClassNotFoundException {
        /* String sql = "insert into customer values(?,?,?,?,?,?,?)";
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
 
@@ -95,8 +104,14 @@ public class CustomerDAOImpl implements CustomerDAO {
 
         return pstm.executeUpdate()>0;*/
 
-  return SQLUtil.execute("insert into customer values(?,?,?,?,?,?,?)");
-
+  return SQLUtil.execute("insert into customer values(?,?,?,?,?,?,?)",
+      entity.getCusID(),
+      entity.getCusName(),
+      entity.getSex(),
+      entity.getNic(),
+      entity.getContact(),
+      entity.getEmail(),
+      entity.getUserID());
 
  }
 
@@ -145,7 +160,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 
  @Override
- public List<Customer> getAll() throws SQLException, ClassNotFoundException {
+ public ArrayList<Customer> getAll() throws SQLException, ClassNotFoundException {
        /* String sql = "select * from customer";
 
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
@@ -166,7 +181,22 @@ public class CustomerDAOImpl implements CustomerDAO {
             customerList.add(customer);
         }
         return customerList;*/
-  return SQLUtil.execute("select * from customer");
+  ArrayList<Customer> allCustomers = new ArrayList<>();
+  ResultSet rs = SQLUtil.execute("select * from customer");
+  while (rs.next()) {
+    Customer customer = new Customer(
+            rs.getString("cusId"),
+            rs.getString("cusName"),
+            rs.getString("sex"),
+            rs.getString("nic"),
+            rs.getString("contact"),
+            rs.getString("email"),
+            rs.getString("userID")
+    );
+    allCustomers.add(customer);
+  }
+  return allCustomers;
+
  }
 
  @Override

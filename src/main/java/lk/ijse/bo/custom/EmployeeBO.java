@@ -14,7 +14,7 @@ public interface EmployeeBO extends SuperBO {
 
 
 
-    public boolean saveEmployee(Employee employee) throws SQLException, ClassNotFoundException ;
+    public  boolean saveEmployee(Employee employee) throws SQLException, ClassNotFoundException ;
 
 
     public boolean updateEmployee(Employee employee) throws SQLException, ClassNotFoundException ;
