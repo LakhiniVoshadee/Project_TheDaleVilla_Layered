@@ -2,11 +2,8 @@ package lk.ijse.dao.custom.impl;
 
 import lk.ijse.dao.SQLUtil;
 import lk.ijse.dao.custom.RentDAO;
-import lk.ijse.db.Dbconnection;
 import lk.ijse.entity.Rent;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,7 +12,7 @@ import java.util.List;
 public class RentDAOImpl implements RentDAO {
 
     @Override
-    public  String generateNextId() throws SQLException, ClassNotFoundException {
+    public ResultSet generateNextId() throws SQLException, ClassNotFoundException {
       /*  String sql = "SELECT RentID FROM Rent order by RentID desc LIMIT 1";
         Connection connection = Dbconnection.getInstance().getConnection();
         ResultSet resultSet = connection.prepareStatement(sql).executeQuery();

@@ -12,7 +12,7 @@ import java.util.List;
 public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
-    public String generateNextId() throws SQLException, ClassNotFoundException {
+    public ResultSet generateNextId() throws SQLException, ClassNotFoundException {
         /*String sql = "Select EmpID from employee order by EmpID desc limit 1 ";
         Connection connection = Dbconnection.getInstance().getConnection();
         ResultSet resultSet = connection.prepareStatement(sql).executeQuery();

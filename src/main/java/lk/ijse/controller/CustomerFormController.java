@@ -29,6 +29,7 @@ import lk.ijse.util.Validation;
 
 
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -98,6 +99,14 @@ public class CustomerFormController implements Initializable {
     public String cusID;
 
     private static CustomerFormController controller;
+    String id = txtCusId.getText();
+    String name = txtCusName.getText();
+    String sex = txtSex.getText();
+    String nic = txtNic.getText();
+    String contact = txtContact.getText();
+    String email = txtEmail.getText();
+   // LoginFormController userId = LoginFormController.getInstance();
+    String userId = "U001";
 
     LinkedHashMap<TextField, Pattern> map =new LinkedHashMap();
 
@@ -151,38 +160,41 @@ public class CustomerFormController implements Initializable {
       CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        try{
-            txtCusId.setText(customerBO.generateNextId());
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            this.customerList=getAllCustomer();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        setCellValueFactory();
-        loadCustomerTable();
+       loadCustomerTable();
+       setCellValueFactory();
+       generateCustomerId();
 
-       /* Pattern patternId = Pattern.compile("^([A-Z0-9])$");
-        Pattern patternName = Pattern.compile("^[A-z|\\\\s]{3,}$");
-        Pattern patternSex = Pattern.compile("^(male|female|non-binary|genderqueer|genderfluid|transgender|agender|bigender|gender nonconforming|gender questioning|gender variant|genderqueer|intersex|neutrois|pangender|third gender)$");
-        Pattern patternNIC = Pattern.compile("^[0-9 a-z]{10}$");
-        Pattern patternContact = Pattern.compile("^([+]94{1,3}|[0])([1-9]{2})([0-9]){7}$");
-        Pattern patternEmail = Pattern.compile("^([A-z])([A-z0-9.]){1,}[@]([A-z0-9]){1,10}[.]([A-z]){2,5}$");
-
-        map.put(txtCusId, patternId);
-        map.put(txtCusName, patternName);
-        map.put(txtSex, patternSex);
-        map.put(txtNic, patternNIC);
-        map.put(txtContact, patternContact);
-        map.put(txtEmail, patternEmail);
-
-        */
 
     }
+
+    private String generateCustomerId() {
+        try {
+            ResultSet resultSet = customerBO.generateNextId();
+            String currentCusId = null;
+            if (resultSet.next()){
+                currentCusId = resultSet.getString(1);
+                return nextCusId(currentCusId);
+            }
+            return nextCusId(currentCusId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private String nextCusId(String currentCusId) {
+        if (currentCusId!= null){
+            String[] split = currentCusId.split("Cus");
+            int cusId = Integer.parseInt(split[1]);
+            cusId++;
+            return "Cus" + cusId;
+
+        }
+        return "Cus 1";
+    }
+
+
     @FXML
     void customerTableClick(MouseEvent event) {
         TablePosition pos = tblCustomer.getSelectionModel().getSelectedCells().get(0);
@@ -202,7 +214,7 @@ public class CustomerFormController implements Initializable {
        // CustomerRepo customerRepo = new CustomerRepo();
         ObservableList<CustomerDTO>allCustomers = FXCollections.observableArrayList();
         try {
-            List<CustomerDTO> customerList = customerBO.getCustomer();
+            List<CustomerDTO> customerList = customerBO.getAllCustomers();
             for (CustomerDTO customer : customerList) {
                 tblCustomer.getItems().add(new CustomerTM(customer.getCusID(), customer.getCusName(), customer.getSex(), customer.getNic(), customer.getContact(), customer.getEmail(), customer.getUserID()));
                // tmList.add(customerTm);
@@ -226,7 +238,9 @@ public class CustomerFormController implements Initializable {
 
     }
 
-    private List<CustomerDTO> getAllCustomer() throws ClassNotFoundException {
+
+
+   /* private List<CustomerDTO> getAllCustomer() throws ClassNotFoundException {
         List<CustomerDTO>customerList = null;
         try {
             customerList = customerBO.getCustomer();
@@ -235,18 +249,14 @@ public class CustomerFormController implements Initializable {
         }
         return customerList;
     }
+*/
+
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
-        String id = txtCusId.getText();
-        String name = txtCusName.getText();
-        String sex = txtSex.getText();
-        String nic = txtNic.getText();
-        String contact = txtContact.getText();
-        String email = txtEmail.getText();
-        LoginFormController userId = LoginFormController.getInstance();
 
-        Customer customer = new Customer(id, name, sex, nic, contact, email, userId.userId);
+
+        Customer customer = new Customer(id, name, sex, nic, contact, email, userId);
        // DataValidateController DataValidateController = new DataValidateController();
         if (DataValidateController.validateCusNIC(txtNic.getText())) {
             lblCusNic.setText("");
@@ -265,7 +275,7 @@ public class CustomerFormController implements Initializable {
 
                             try {
                                 System.out.println(customer);
-                                boolean isSaved = customerBO.saveCustomer(customer);
+                                boolean isSaved = customerBO.saveCustomer(new CustomerDTO(id,name,sex,nic,contact,email,userId));
                                 if (isSaved) {
                                     new Alert(Alert.AlertType.CONFIRMATION, "Customer saved successfully").show();
                                     loadCustomerTable();
@@ -293,16 +303,10 @@ public class CustomerFormController implements Initializable {
     }
 
     @FXML
-    void btnUpdateOnAction(ActionEvent event) {
-        String id = txtCusId.getText();
-        String name = txtCusName.getText();
-        String sex = txtSex.getText();
-        String nic = txtNic.getText();
-        String contact = txtContact.getText();
-        String email = txtEmail.getText();
-        String userId = LoginFormController.getInstance().userId;
+    void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
 
-        Customer customer = new Customer(id, name, sex, nic, contact, email, userId);
+
+       /* Customer customer = new Customer(id, name, sex, nic, contact, email, userId);
 
         try {
             boolean isUpdated = customerBO.updateCustomer(customer);
@@ -313,6 +317,17 @@ public class CustomerFormController implements Initializable {
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }*/
+        try {
+
+            boolean isUpdated = customerBO.updateCustomer(new CustomerDTO(id, name, sex, nic, contact, email, userId));
+            if (isUpdated) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Customer updated successfully").show();
+                loadCustomerTable();
+            }
+
+        }catch (SQLException e){
             throw new RuntimeException(e);
         }
     }

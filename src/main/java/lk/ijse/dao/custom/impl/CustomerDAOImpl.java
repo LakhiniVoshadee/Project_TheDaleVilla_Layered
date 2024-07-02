@@ -52,7 +52,7 @@ public class CustomerDAOImpl implements CustomerDAO {
  }
 
  @Override
- public String generateNextId() throws SQLException, ClassNotFoundException {
+ public ResultSet generateNextId() throws SQLException, ClassNotFoundException {
         /*String sql = "SELECT CusID FROM customer ORDER BY CusID DESC LIMIT 1";
         Connection connection = Dbconnection.getInstance().getConnection();
         ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
@@ -76,19 +76,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 
  }
 
- /*@Override
- public String splitId(String id) throws SQLException, ClassNotFoundException {
-       *//* if (id != null){
-            String[] ids = id.split("Cus ");
-            int CusId = Integer.parseInt(ids[1]);
-            CusId++;
-            return "Cus " + CusId;
-        }
-        return "Cus 1";*//*
-  return SQLUtil.execute("");
-
- }
-*/
  @Override
  public boolean save(Customer entity) throws SQLException, ClassNotFoundException {
        /* String sql = "insert into customer values(?,?,?,?,?,?,?)";
@@ -133,7 +120,6 @@ public class CustomerDAOImpl implements CustomerDAO {
  }
 
  @Override
-
  public boolean search(String cId) throws SQLException, ClassNotFoundException {
       /*  String sql = "select * from customer where CusId=?";
 
@@ -200,7 +186,6 @@ public class CustomerDAOImpl implements CustomerDAO {
  }
 
  @Override
-
  public int count() throws SQLException, ClassNotFoundException {
        /* Connection connection = Dbconnection.getInstance().getConnection();
         String sql = "select count(CusID) as customer_count from customer";
