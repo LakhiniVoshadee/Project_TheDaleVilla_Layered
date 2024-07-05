@@ -41,7 +41,7 @@ public  class CustomerBOImpl implements CustomerBO {
         ArrayList<CustomerDTO> allCusId = new ArrayList<>();
         ArrayList<Customer> allId = customerDAO.getIds();
         for (Customer c : allId){
-            allCusId.add(new CustomerDTO(c.getCusID()));
+            allCusId.add(new CustomerDTO(c.getCusID(),c.getCusName(),c.getSex(),c.getNic(),c.getContact(),c.getEmail(),c.getUserID()));
         }
         return allCusId;
     }

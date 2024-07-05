@@ -1,5 +1,13 @@
 package lk.ijse.tdm;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class EmployeeTM {
     private String EmpID;
     private String Name;
@@ -8,76 +16,5 @@ public class EmployeeTM {
     private String DOB;
     private String UserID;
 
-    public EmployeeTM() {
 
-    }
-
-    public EmployeeTM(String empID, String name, String type, String email, String DOB, String userID) {
-        EmpID = empID;
-        Name = name;
-        Type = type;
-        Email = email;
-        this.DOB = DOB;
-        UserID = userID;
-    }
-
-    public String getEmpID() {
-        return EmpID;
-    }
-
-    public void setEmpID(String empID) {
-        EmpID = empID;
-    }
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
-    public String getType() {
-        return Type;
-    }
-
-    public void setType(String type) {
-        Type = type;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String email) {
-        Email = email;
-    }
-
-    public String getDOB() {
-        return DOB;
-    }
-
-    public void setDOB(String DOB) {
-        this.DOB = DOB;
-    }
-
-    public String getUserID() {
-        return UserID;
-    }
-
-    public void setUserID(String userID) {
-        UserID = userID;
-    }
-
-    @Override
-    public String toString() {
-        return "EmployeeTM{" +
-                "EmpID='" + EmpID + '\'' +
-                ", Name='" + Name + '\'' +
-                ", Type='" + Type + '\'' +
-                ", Email='" + Email + '\'' +
-                ", DOB='" + DOB + '\'' +
-                ", UserID='" + UserID + '\'' +
-                '}';
-    }
 }

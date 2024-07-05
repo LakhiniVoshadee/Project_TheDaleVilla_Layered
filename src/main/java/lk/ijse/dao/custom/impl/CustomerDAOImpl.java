@@ -1,11 +1,6 @@
 package lk.ijse.dao.custom.impl;
 
-/*mport lk.ijse.thedale.controller.LoginFormController;
-import lk.ijse.thedale.db.Dbconnection;
-import lk.ijse.thedale.model.Customer;
-import lk.ijse.thedale.model.Employee;
-import lk.ijse.thedale.model.UserModel;
-*/
+
 import lk.ijse.dao.SQLUtil;
 import lk.ijse.dao.custom.CustomerDAO;
 import lk.ijse.entity.Customer;
@@ -18,28 +13,13 @@ public class CustomerDAOImpl implements CustomerDAO {
 
  @Override
  public boolean delete(String id) throws SQLException, ClassNotFoundException {
-       /* String sql = "delete from customer where CusId=?";
-        PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1,id);
 
-        return pstm.executeUpdate()>0;*/
-  return SQLUtil.execute("delete from customer where CusId=?");
+  return SQLUtil.execute("delete from customer where CusId=?" ,id);
  }
 
 
  @Override
  public boolean update(Customer entity) throws SQLException, ClassNotFoundException {
-       /* String sql = "UPDATE customer SET Name = ?, sex = ?, Nic =?, Contact =?, Email =? WHERE CusId=? ";
-        PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
-
-        pstm.setString(1,customer.getCusName());
-        pstm.setString(2,customer.getSex());
-        pstm.setString(3,customer.getNic());
-        pstm.setString(4,customer.getContact());
-        pstm.setString(5,customer.getEmail());
-        pstm.setString(6,customer.getCusID());
-
-        return pstm.executeUpdate()>0;*/
 
   return SQLUtil.execute("UPDATE customer SET Name = ?, sex = ?, Nic =?, Contact =?, Email =? WHERE CusId=?",
           entity.getCusName(),
@@ -52,43 +32,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 
  @Override
  public ResultSet generateNextId() throws SQLException, ClassNotFoundException {
-        /*String sql = "SELECT CusID FROM customer ORDER BY CusID DESC LIMIT 1";
-        Connection connection = Dbconnection.getInstance().getConnection();
-        ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
-
-        String id = null;
-        if (resultSet.next()){
-            id = resultSet.getString(1);
-            return splitId(null);
-        }
-        return splitId(null);
-  ResultSet rs = SQLUtil.execute("SELECT CusID FROM customer ORDER BY CusID DESC LIMIT 1");
-  if (rs.next()) {
-   String id = rs.getString("id");
-   int newCustomerId = Integer.parseInt(id.replace("C00-", "")) + 1;
-   return String.format("C00-%03d", newCustomerId);
-  }else {
-   return "C00-001";
-  }*/
-
   return SQLUtil.execute("SELECT CusID FROM customer ORDER BY CusID DESC LIMIT 1");
 
  }
 
  @Override
  public boolean save(Customer entity) throws SQLException, ClassNotFoundException {
-       /* String sql = "insert into customer values(?,?,?,?,?,?,?)";
-        PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
-
-        pstm.setObject(1,customer.getCusID());
-        pstm.setObject(2,customer.getCusName());
-        pstm.setObject(3,customer.getSex());
-        pstm.setObject(4,customer.getNic());
-        pstm.setObject(5,customer.getContact());
-        pstm.setObject(6,customer.getEmail());
-        pstm.setObject(7, UserModel.Uid);
-
-        return pstm.executeUpdate()>0;*/
 
   return SQLUtil.execute("insert into customer values(?,?,?,?,?,?,?)",
       entity.getCusID(),
@@ -103,61 +52,29 @@ public class CustomerDAOImpl implements CustomerDAO {
 
  @Override
  public ArrayList<Customer> getIds() throws SQLException, ClassNotFoundException {
-      /*  String sql = "SELECT CusID FROM customer";
-
-        Connection connection = Dbconnection.getInstance().getConnection();
-        ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
-
-        List<String> idList = new ArrayList<>();
-
-        while (resultSet.next()) {
-            idList.add(resultSet.getString(1));
-
-        }
-        return idList;*/
   return SQLUtil.execute("SELECT CusID FROM customer");
  }
 
  @Override
  public boolean search(String cId) throws SQLException, ClassNotFoundException {
-
-  return SQLUtil.execute("select * from customer where CusId=?");
+  return SQLUtil.execute("select * from customer where CusId=?",cId);
  }
 
 
  @Override
  public ArrayList<Customer> getAll() throws SQLException, ClassNotFoundException {
-       /* String sql = "select * from customer";
+     ResultSet rs = SQLUtil.execute("select * from customer");
+     ArrayList<Customer> allCustomers = new ArrayList<>();
 
-        PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
-
-        ResultSet resultSet = Dbconnection.getInstance().getConnection().prepareStatement(sql).executeQuery();
-
-        List<Customer> customerList = new ArrayList<>();
-        while (resultSet.next()){
-            String cusId = resultSet.getString(1);
-            String cusName = resultSet.getString(2);
-            String sex = resultSet.getString(3);
-            String nic = resultSet.getString(4);
-            String contact = resultSet.getString(5);
-            String email = resultSet.getString(6);
-            String userID = resultSet.getString(7);
-
-            Customer customer = new Customer(cusId,cusName,sex,nic,contact,email,userID);
-            customerList.add(customer);
-        }
-        return customerList;*/
-  ArrayList<Customer> allCustomers = new ArrayList<>();
-  ResultSet rs = SQLUtil.execute("select * from customer");
   while (rs.next()) {
     Customer customer = new Customer(
-            rs.getString("cusId"),
-            rs.getString("cusName"),
-            rs.getString("sex"),
-            rs.getString("nic"),
-            rs.getString("contact"),
-            rs.getString("email"),
-            rs.getString("userID")
+            rs.getString(1),
+            rs.getString(2),
+            rs.getString(3),
+            rs.getString(4),
+            rs.getString(5),
+            rs.getString(6),
+            rs.getString(7)
     );
     allCustomers.add(customer);
   }
@@ -167,14 +84,11 @@ public class CustomerDAOImpl implements CustomerDAO {
 
  @Override
  public int count() throws SQLException, ClassNotFoundException {
-       /* Connection connection = Dbconnection.getInstance().getConnection();
-        String sql = "select count(CusID) as customer_count from customer";
 
-        PreparedStatement pstm = connection.prepareStatement(sql);*/
         ResultSet resultSet = SQLUtil.execute("select count(CusID) as customer_count from customer");
 
         if (resultSet.next()){
-            int customerCount = Integer.parseInt(resultSet.getString(1));
+            int customerCount = Integer.parseInt(resultSet.getString("customer_count"));
             return customerCount;
         }
         return Integer.parseInt(null);
