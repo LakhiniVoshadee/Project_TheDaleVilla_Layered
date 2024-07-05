@@ -1,3 +1,4 @@
+
 package lk.ijse.controller;
 
 import javafx.collections.FXCollections;
@@ -15,11 +16,11 @@ import lk.ijse.bo.custom.EmployeeBO;
 import lk.ijse.entity.Employee;
 import lk.ijse.model.EmployeeDTO;
 import lk.ijse.tdm.EmployeeTM;
-import lk.ijse.thedale.model.Employee;
+/*import lk.ijse.thedale.model.Employee;
 import lk.ijse.thedale.repository.EmployeeRepo;
 import lk.ijse.thedale.tm.EmployeeTm;
 import lk.ijse.thedale.util.DataValidateController;
-import lk.ijse.thedale.util.Validation;
+import lk.ijse.thedale.util.Validation;*/
 import lk.ijse.util.DataValidateController;
 //import lk.ijse.thedale.util.Validation;
 
@@ -135,7 +136,8 @@ public class EmployeeFormController implements Initializable {
         setCellValueFactory();
         loadEmployeeTable();
 
-       /* Pattern patternId = Pattern.compile("^([A-Z0-9])$");
+
+ Pattern patternId = Pattern.compile("^([A-Z0-9])$");
         Pattern patternName = Pattern.compile("^[A-z|\\\\s]{3,}$");
         //Pattern patternType = Pattern.compile("^[A-z|\\\\s]{5,}$");
         Pattern patternEmail = Pattern.compile("^([A-z])([A-z0-9.]){1,}[@]([A-z0-9]){1,10}[.]([A-z]){2,5}$");
@@ -144,7 +146,8 @@ public class EmployeeFormController implements Initializable {
         map.put(txtEmpName, patternName);
         map.put(txtEmail, patternEmail);
 
-        */
+
+
     }
 
     @FXML
@@ -272,4 +275,5 @@ public class EmployeeFormController implements Initializable {
     }
 
 }
+
 

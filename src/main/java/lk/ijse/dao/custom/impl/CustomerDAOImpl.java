@@ -13,7 +13,6 @@ import lk.ijse.entity.Customer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CustomerDAOImpl implements CustomerDAO {
 
@@ -103,7 +102,7 @@ public class CustomerDAOImpl implements CustomerDAO {
  }
 
  @Override
- public List<String> getIds() throws SQLException, ClassNotFoundException {
+ public ArrayList<Customer> getIds() throws SQLException, ClassNotFoundException {
       /*  String sql = "SELECT CusID FROM customer";
 
         Connection connection = Dbconnection.getInstance().getConnection();
@@ -121,26 +120,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
  @Override
  public boolean search(String cId) throws SQLException, ClassNotFoundException {
-      /*  String sql = "select * from customer where CusId=?";
 
-        PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1,cId);
-
-        ResultSet resultSet = pstm.executeQuery();
-        Customer customer = null;
-
-        if (resultSet.next()){
-            String cusID = resultSet.getString(1);
-            String cusName = resultSet.getString(2);
-            String sex = resultSet.getString(3);
-            String nic = resultSet.getString(4);
-            String contact = resultSet.getString(5);
-            String email = resultSet.getString(6);
-            String UserID = resultSet.getString(7);
-
-            customer = new Customer(cusID,cusName,sex,nic,contact,email,UserID);
-        }
-        return customer;*/
   return SQLUtil.execute("select * from customer where CusId=?");
  }
 

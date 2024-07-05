@@ -11,7 +11,7 @@ public class CustomerDTO implements Serializable {
     private String email;
     public String UserID;
 
-    public CustomerDTO() {
+    public CustomerDTO(String cusID) {
     }
 
     public CustomerDTO(String cusID, String cusName, String sex, String nic, String contact, String email, String userID) {

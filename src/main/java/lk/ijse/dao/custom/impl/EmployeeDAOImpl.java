@@ -2,12 +2,12 @@ package lk.ijse.dao.custom.impl;
 
 import lk.ijse.dao.SQLUtil;
 import lk.ijse.dao.custom.EmployeeDAO;
+import lk.ijse.entity.Customer;
 import lk.ijse.entity.Employee;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
 
@@ -122,7 +122,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public List<String> getIds() throws SQLException, ClassNotFoundException {
+    public ArrayList<Customer> getIds() throws SQLException, ClassNotFoundException {
        /* String sql = "SELECT * FROM employee";
         ResultSet resultSet = Dbconnection.getInstance().getConnection().prepareStatement(sql).executeQuery();
         List<Employee> employeeList = new ArrayList<>();

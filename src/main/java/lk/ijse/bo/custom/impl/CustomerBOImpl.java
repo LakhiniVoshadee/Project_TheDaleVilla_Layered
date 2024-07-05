@@ -9,7 +9,6 @@ import lk.ijse.model.CustomerDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public  class CustomerBOImpl implements CustomerBO {
 
@@ -38,13 +37,18 @@ public  class CustomerBOImpl implements CustomerBO {
     }
 
     @Override
-    public ArrayList<String> getCusIds() throws SQLException, ClassNotFoundException {
-        return List.of();
+    public ArrayList<CustomerDTO> getCusIds() throws SQLException, ClassNotFoundException {
+        ArrayList<CustomerDTO> allCusId = new ArrayList<>();
+        ArrayList<Customer> allId = customerDAO.getIds();
+        for (Customer c : allId){
+            allCusId.add(new CustomerDTO(c.getCusID()));
+        }
+        return allCusId;
     }
 
     @Override
     public boolean searchCustomer(String cId) throws SQLException, ClassNotFoundException {
-
+       return customerDAO.search(cId);
     }
 
     @Override
