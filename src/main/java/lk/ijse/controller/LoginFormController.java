@@ -75,7 +75,7 @@ public class LoginFormController {
 
     }
 
-    @FXML
+   /* @FXML
     void linkForgotPwOnAction(ActionEvent event) throws IOException {
         Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/forgetPassword_form.fxml"));
         Scene scene = new Scene(rootNode);
@@ -85,7 +85,7 @@ public class LoginFormController {
         stage.setTitle("ForgotPassword Form");
 
         stage.show();
-    }
+    }*/
 
     @FXML
     void linkSignUpOnAction(ActionEvent event) throws IOException {

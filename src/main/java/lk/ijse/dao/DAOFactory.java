@@ -4,6 +4,7 @@ import lk.ijse.dao.custom.CustomerDAO;
 import lk.ijse.dao.custom.EmployeeDAO;
 import lk.ijse.dao.custom.RentDAO;
 import lk.ijse.dao.custom.RoomDAO;
+import lk.ijse.dao.custom.impl.AdminDAOImpl;
 import lk.ijse.dao.custom.impl.CustomerDAOImpl;
 import lk.ijse.dao.custom.impl.EmployeeDAOImpl;
 /*import lk.ijse.dao.custom.impl.RentDAOImpl;
@@ -20,7 +21,7 @@ public class DAOFactory {
     }
 
     public enum DAOTypes{
-        CUSTOMER,EMPLOYEE,ROOM,RENT
+        CUSTOMER,EMPLOYEE,ROOM,RENT,ADMIN
     }
 
     public SuperDAO getDAO(DAOTypes type) {
@@ -29,6 +30,8 @@ public class DAOFactory {
                 return new CustomerDAOImpl();
                 case EMPLOYEE:
                     return new EmployeeDAOImpl();
+            case ADMIN:
+                return new AdminDAOImpl();
                     /*case ROOM:
                         return new RoomDAOImpl();
                         case RENT:

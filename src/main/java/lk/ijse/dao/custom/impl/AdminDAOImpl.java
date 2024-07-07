@@ -1,4 +1,4 @@
-/*
+
 package lk.ijse.dao.custom.impl;
 
 import lk.ijse.dao.SQLUtil;
@@ -33,7 +33,7 @@ public class AdminDAOImpl implements AdminDAO {
         return false;
     }
 
-    @Override
+   /* @Override
     public ArrayList<Customer> getIds() throws SQLException, ClassNotFoundException {
         return null;
     }
@@ -41,7 +41,7 @@ public class AdminDAOImpl implements AdminDAO {
     @Override
     public boolean search(String id) throws SQLException, ClassNotFoundException {
         return false;
-    }
+    }*/
 
     @Override
     public ArrayList<Admin> getAll() throws SQLException, ClassNotFoundException {
@@ -53,8 +53,8 @@ public class AdminDAOImpl implements AdminDAO {
         return 0;
     }
 
-    public ResultSet verify(String id) throws SQLException, ClassNotFoundException {
+    public ResultSet verifyCredentials(String UserName, String Password) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("");
     }
 }
-*/
+
