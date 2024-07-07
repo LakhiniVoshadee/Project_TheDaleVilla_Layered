@@ -12,12 +12,12 @@ import java.util.ArrayList;
 public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        return SQLUtil.execute("DELETE FROM employee WHERE id = ?", id);
     }
 
     @Override
     public boolean update(Employee entity) throws SQLException, ClassNotFoundException {
-        return false;
+        return SQLUtil.execute("UPDATE customer SET Name = ?, sex = ?, Nic =?, Contact =?, Email =? WHERE CusId=? ");
     }
 
     @Override

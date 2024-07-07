@@ -54,7 +54,8 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     public ResultSet verifyCredentials(String UserName, String Password) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("");
+      ResultSet resultSet = SQLUtil.execute("SELECT Password from Admin where UserName=?", UserName);
+       return resultSet;
     }
 }
 
