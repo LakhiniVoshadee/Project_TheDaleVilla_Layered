@@ -1,14 +1,22 @@
 package lk.ijse.controller;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import lk.ijse.util.Navigation;
 
 import java.io.IOException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.ResourceBundle;
 
-public class DashboardFormController {
+public class DashboardFormController implements Initializable {
+
+
 
     @FXML
     private JFXButton btnBooking;
@@ -90,5 +98,16 @@ public class DashboardFormController {
         Navigation.switchPaging(pagingPane,"rent_form.fxml");
 
     }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        pagingPane.setVisible(true);
+        try {
+            Navigation.switchPaging(pagingPane,"home_form.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }

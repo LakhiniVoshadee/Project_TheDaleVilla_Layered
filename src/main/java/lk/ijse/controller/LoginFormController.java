@@ -41,7 +41,7 @@ public class LoginFormController {
         boolean b = adminBO.verifyCredentials(userId,password);
 
         if (b){
-            Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/home_form.fxml"));
+            Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/dashboard_form.fxml"));
             Scene scene = new Scene(rootNode);
             Stage stage = new Stage();
             stage.setScene(scene);

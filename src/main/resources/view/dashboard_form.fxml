@@ -59,20 +59,6 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="50.0" layoutY="433.0" prefHeight="49.0" prefWidth="166.0" style="-fx-background-color: #373D20; -fx-background-radius: 30;">
-         <children>
-            <JFXButton fx:id="btnFood" buttonType="RAISED" onAction="#btnFoodOnAction" prefHeight="49.0" prefWidth="166.0" style="-fx-background-radius: 30;" text="Food" textFill="WHITE">
-               <font>
-                  <Font name="Arial Bold" size="15.0" />
-               </font>
-            </JFXButton>
-            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="14.0" layoutY="12.0">
-               <image>
-                  <Image url="@../assets/icons/order-food.png" />
-               </image>
-            </ImageView>
-         </children>
-      </Pane>
       <Pane layoutX="45.0" layoutY="509.0" prefHeight="49.0" prefWidth="166.0" style="-fx-background-color: #373D20; -fx-background-radius: 30;">
          <children>
             <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="25.0" layoutY="12.0">
