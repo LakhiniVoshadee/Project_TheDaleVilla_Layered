@@ -1,5 +1,6 @@
 package lk.ijse.bo;
 
+import lk.ijse.bo.custom.impl.AdminBOImpl;
 import lk.ijse.bo.custom.impl.CustomerBOImpl;
 import lk.ijse.bo.custom.impl.EmployeeBOImpl;
 //import lk.ijse.bo.custom.impl.RentBOImpl;
@@ -16,7 +17,7 @@ public class BOFactory {
     }
 
     public enum BOTypes{
-        CUSTOMER,EMPLOYEE,ROOM,RENT
+        CUSTOMER,EMPLOYEE,ROOM,RENT,ADMIN
     }
 
     public SuperBO getBO(BOTypes Type){
@@ -29,6 +30,8 @@ public class BOFactory {
                         return new RoomBOImpl();
                         case RENT:
                             return new RentBOImpl();*/
+            case ADMIN:
+                return new AdminBOImpl();
             default:
                 return null;
         }

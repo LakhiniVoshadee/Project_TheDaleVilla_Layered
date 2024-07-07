@@ -1,3 +1,4 @@
+/*
 package lk.ijse.model;
 
 import javafx.scene.control.Alert;
@@ -42,3 +43,4 @@ public class UserModelDTO {
     }
 
 }
+*/

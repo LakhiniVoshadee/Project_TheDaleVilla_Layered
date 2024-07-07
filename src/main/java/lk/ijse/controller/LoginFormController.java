@@ -6,28 +6,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.model.AdminDTO;
-import lk.ijse.model.UserModelDTO;
-/*import lk.ijse.thedale.model.Admin;
-import lk.ijse.thedale.model.UserModel;
-import lk.ijse.thedale.util.Navigation;*/
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.custom.AdminBO;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class LoginFormController {
-
+   AdminBO adminBO = (AdminBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ADMIN);
     @FXML
     private JFXButton btnLogin;
-
-    @FXML
-    private Hyperlink hyperForgotPassword;
 
     @FXML
     private Hyperlink hyperSignUp;
@@ -39,75 +32,34 @@ public class LoginFormController {
     private PasswordField txtPassword;
 
     @FXML
-    public TextField txtUserId;
-
-    public String userId;
-
-    public String tel;
-
-    AdminDTO adminDTO = new AdminDTO();
-
-    private static LoginFormController controller;
-
-    public LoginFormController(){
-        controller = this;
-
-    }
-
-    public static LoginFormController getInstance(){
-        return controller;
-    }
+    private TextField txtUserId;
 
     @FXML
-    void btnLoginOnAction(ActionEvent event) {
-        userId = txtUserId.getText();
+    void btnLoginOnAction(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
+        String userId = txtUserId.getText();
         String password = txtPassword.getText();
+        boolean b = adminBO.verifyCredentials(userId,password);
 
-        try {
-            UserModelDTO.verifyCredentials(userId, password, rootNode);
-        }catch (SQLException e){
-            new Alert(Alert.AlertType.ERROR,"Try again").show();
-        }catch (IOException e){
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        if (b){
+            Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/home_form.fxml"));
+            Scene scene = new Scene(rootNode);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Dashboard Form");
+            stage.show();
+        }else {
+            System.out.println("failed");
         }
-
     }
-
-   /* @FXML
-    void linkForgotPwOnAction(ActionEvent event) throws IOException {
-        Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/forgetPassword_form.fxml"));
-        Scene scene = new Scene(rootNode);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-
-        stage.setTitle("ForgotPassword Form");
-
-        stage.show();
-    }*/
 
     @FXML
     void linkSignUpOnAction(ActionEvent event) throws IOException {
         Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/signup_form.fxml"));
-
         Scene scene = new Scene(rootNode);
         Stage stage = new Stage();
         stage.setScene(scene);
-
         stage.setTitle("SignUp Form");
         stage.show();
-
     }
 
-    public void gotodashboard() throws IOException {
-        AnchorPane rootNode = FXMLLoader.load(this.getClass().getResource("/view/dashboard_form.fxml"));
-
-        Scene scene = new Scene(rootNode);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.centerOnScreen();
-        stage.setTitle("DashBoard Form");
-        stage.show();
-    }
 }
