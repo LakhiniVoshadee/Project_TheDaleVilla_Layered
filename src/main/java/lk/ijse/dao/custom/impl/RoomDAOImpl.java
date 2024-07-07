@@ -1,5 +1,7 @@
+/*
 package lk.ijse.dao.custom.impl;
 
+import lk.ijse.dao.SQLUtil;
 import lk.ijse.dao.custom.RoomDAO;
 import lk.ijse.entity.Customer;
 import lk.ijse.entity.Room;
@@ -12,41 +14,79 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        return SQLUtil.execute("DELETE FROM room WHERE id = ?", id);
     }
 
     @Override
     public boolean update(Room entity) throws SQLException, ClassNotFoundException {
-        return false;
+        return SQLUtil.execute("Update room Set Type = ?, Date = ?  , UnitPrice = ?, Qty = ? , CusID = ? where RoomID = ?",
+                entity.getType(),
+                entity.getDate(),
+                entity.getUnitPrice(),
+                entity.getQty(),
+                entity.getCustomerId(),
+                entity.getRoomID()
+
+                );
+
     }
 
     @Override
     public ResultSet generateNextId() throws SQLException, ClassNotFoundException {
-        return null;
+        return SQLUtil.execute("SELECT RoomID from room order by RoomID desc limit 1");
     }
 
     @Override
     public boolean save(Room entity) throws SQLException, ClassNotFoundException {
-        return false;
+        return SQLUtil.execute("Insert into room values(?,?,?,?,?,?)",
+                entity.getRoomID(),
+                entity.getType(),
+                entity.getDate(),
+                entity.getUnitPrice(),
+                entity.getQty()
+
+
+                );
     }
 
     @Override
     public ArrayList<Customer> getIds() throws SQLException, ClassNotFoundException {
-        return null;
+        return SQLUtil.execute("select RoomID from room");
     }
 
     @Override
     public boolean search(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        return SQLUtil.execute("SELECT * FROM room WHERE RoomID = ?", id);
     }
 
     @Override
     public ArrayList<Room> getAll() throws SQLException, ClassNotFoundException {
-        return null;
+       ResultSet rs = SQLUtil.execute("select * from room");
+       ArrayList<Room> rooms = new ArrayList<>();
+
+       while (rs.next()) {
+           Room room = new Room(
+                rs.getString(1),
+                rs.getString(2),
+                rs.getString(3),
+                rs.getString(4),
+                rs.getDouble(5),
+                rs.getString(6)
+           );
+           rooms.add(room);
+       }
+       return rooms;
     }
 
     @Override
     public int count() throws SQLException, ClassNotFoundException {
-        return 0;
+        ResultSet resultSet  = SQLUtil.execute("select count(RoomID) as room_count from room");
+
+        if (resultSet.next()) {
+            int roomCount = Integer.parseInt(resultSet.getString("room_count"));
+        }
+
+        return Integer.parseInt(null);
     }
 }
+*/

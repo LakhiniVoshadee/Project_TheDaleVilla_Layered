@@ -10,10 +10,39 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
+    @Override
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean update(Employee entity) throws SQLException, ClassNotFoundException {
+        return false;
+    }
 
     @Override
     public ResultSet generateNextId() throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("Select EmpID from employee order by EmpID desc limit 1");
+        return null;
+    }
+
+    @Override
+    public boolean save(Employee entity) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public ArrayList<Employee> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public int count() throws SQLException, ClassNotFoundException {
+        return 0;
+    }
+/*
+    @Override
+    public ResultSet generateNextId() throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute("SELECT EmpID from employee order by EmpID desc limit 1");
     }
 
 
@@ -48,18 +77,18 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         return SQLUtil.execute("DELETE FROM employee WHERE EmpID = ?",id);
     }
 
-
+*//*
     @Override
     public ArrayList<Customer> getIds() throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("SELECT * FROM employee");
-    }
+    }*//*
 
 
-    @Override
+  *//*  @Override
     public boolean search(String id) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("SELECT * FROM employee WHERE EmpID = ?",id);
     }
-
+*//*
     @Override
     public ArrayList<Employee> getAll() throws SQLException, ClassNotFoundException {
         ResultSet rs = SQLUtil.execute("SELECT * FROM employee");
@@ -80,12 +109,12 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public int count() throws SQLException, ClassNotFoundException {
-       ResultSet resultSet = SQLUtil.execute("select count(EmpID) as employee_count from employee");
+       ResultSet resultSet = SQLUtil.execute("SELECT count(EmpID) as employee_count from employee");
 
        if (resultSet.next()) {
            int employeeCount = Integer.parseInt(resultSet.getString("employee_count"));
            return employeeCount;
        }
        return Integer.parseInt(null);
-    }
+    }*/
 }

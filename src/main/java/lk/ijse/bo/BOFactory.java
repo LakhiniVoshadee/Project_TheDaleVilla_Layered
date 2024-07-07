@@ -2,8 +2,8 @@ package lk.ijse.bo;
 
 import lk.ijse.bo.custom.impl.CustomerBOImpl;
 import lk.ijse.bo.custom.impl.EmployeeBOImpl;
-import lk.ijse.bo.custom.impl.RentBOImpl;
-import lk.ijse.bo.custom.impl.RoomBOImpl;
+//import lk.ijse.bo.custom.impl.RentBOImpl;
+//import lk.ijse.bo.custom.impl.RoomBOImpl;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -25,10 +25,10 @@ public class BOFactory {
                 return new CustomerBOImpl();
                 case EMPLOYEE:
                     return new EmployeeBOImpl();
-                    case ROOM:
+                   /* case ROOM:
                         return new RoomBOImpl();
                         case RENT:
-                            return new RentBOImpl();
+                            return new RentBOImpl();*/
             default:
                 return null;
         }

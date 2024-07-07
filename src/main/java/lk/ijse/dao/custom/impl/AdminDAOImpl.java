@@ -1,3 +1,4 @@
+/*
 package lk.ijse.dao.custom.impl;
 
 import lk.ijse.dao.SQLUtil;
@@ -56,3 +57,4 @@ public class AdminDAOImpl implements AdminDAO {
         return SQLUtil.execute("");
     }
 }
+*/

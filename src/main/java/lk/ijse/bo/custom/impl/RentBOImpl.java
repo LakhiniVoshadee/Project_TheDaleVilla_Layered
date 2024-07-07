@@ -1,3 +1,4 @@
+/*
 package lk.ijse.bo.custom.impl;
 
 import lk.ijse.bo.custom.RentBO;
@@ -18,7 +19,8 @@ public class RentBOImpl implements RentBO {
 
 
     public  String generateNextId() throws SQLException, ClassNotFoundException {
-      /*  String sql = "SELECT RentID FROM Rent order by RentID desc LIMIT 1";
+      */
+/*  String sql = "SELECT RentID FROM Rent order by RentID desc LIMIT 1";
         Connection connection = Dbconnection.getInstance().getConnection();
         ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
 
@@ -27,14 +29,16 @@ public class RentBOImpl implements RentBO {
             id = resultSet.getString(1);
             return splitId(id);
         }
-        return splitId(null);*/
+        return splitId(null);*//*
+
 
         return rentDAO.generateNextId();
 
 
     }
 
-  /*  private static String splitId(String id) {
+  */
+/*  private static String splitId(String id) {
         if (id != null){
             String[] split = id.split("Rent ");
             int RentID = Integer.parseInt(split[1]);
@@ -42,7 +46,8 @@ public class RentBOImpl implements RentBO {
             return "Rent " + RentID;
         }
         return "Rent 1";
-    }*/
+    }*//*
+
 
 
     public boolean deleteRent(String id) throws SQLException, ClassNotFoundException {
@@ -58,7 +63,8 @@ public class RentBOImpl implements RentBO {
 
 
     public boolean update(RentDTO dto) throws SQLException, ClassNotFoundException {
-        /*String sql = "Update Rent set Type = ?, Qty = ?, Description = ? , UnitPrice = ? where RentID = ?";
+        */
+/*String sql = "Update Rent set Type = ?, Qty = ?, Description = ? , UnitPrice = ? where RentID = ?";
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
 
         pstm.setObject(1,rent.getType());
@@ -69,12 +75,14 @@ public class RentBOImpl implements RentBO {
         pstm.setObject(5,rent.getRentID());
 
         return pstm.executeUpdate() > 0;
-        return SQLUtil.execute("Update Rent set Type = ?, Qty = ?, Description = ? , UnitPrice = ? where RentID = ?");*/
+        return SQLUtil.execute("Update Rent set Type = ?, Qty = ?, Description = ? , UnitPrice = ? where RentID = ?");*//*
+
         return rentDAO.update(new Rent(dto.getRentID(),dto.getQty(),dto.getDescription(),dto.getType(),dto.getUnitPrice()));
     }
     @Override
     public  boolean search(String rentId) throws SQLException, ClassNotFoundException {
-        /*String sql = "select * from Rent where RentID = ?";
+        */
+/*String sql = "select * from Rent where RentID = ?";
 
         PreparedStatement pstm = Dbconnection.getInstance().getConnection().prepareStatement(sql);
 
@@ -94,7 +102,8 @@ public class RentBOImpl implements RentBO {
             rent = new Rent(id,type,qty,description,unitPrice);
 
         }
-        return rent;*/
+        return rent;*//*
+
         return SQLUtil.execute("select * from Rent where RentID = ?");
 
 
@@ -102,7 +111,8 @@ public class RentBOImpl implements RentBO {
 
     @Override
     public List<Rent> getAll() throws SQLException, ClassNotFoundException {
-       /* String sql = "SELECT * FROM Rent";
+       */
+/* String sql = "SELECT * FROM Rent";
         ResultSet resultSet = Dbconnection.getInstance().getConnection().prepareStatement(sql).executeQuery();
         List<Rent> rentList = new ArrayList<>();
         while (resultSet.next()){
@@ -117,17 +127,20 @@ public class RentBOImpl implements RentBO {
             rentList.add(rent);
 
         }
-        return rentList;*/
+        return rentList;*//*
+
         return SQLUtil.execute("SELECT * FROM Rent");
     }
 
     @Override
 
     public int count() throws SQLException, ClassNotFoundException {
-       /* Connection connection = Dbconnection.getInstance().getConnection();
+       */
+/* Connection connection = Dbconnection.getInstance().getConnection();
         String sql = "select count(RentID) as rent_count from Rent";
 
-        PreparedStatement pstm = connection.prepareStatement(sql);*/
+        PreparedStatement pstm = connection.prepareStatement(sql);*//*
+
         ResultSet resultSet = SQLUtil.execute("select count(RentID) as rent_count from Rent");
 
         if (resultSet.next()){
@@ -139,3 +152,4 @@ public class RentBOImpl implements RentBO {
 
 
 }
+*/

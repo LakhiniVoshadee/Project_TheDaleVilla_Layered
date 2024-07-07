@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface RentBO extends SuperBO {
 
-    public  String generateNextId() throws SQLException, ClassNotFoundException;
+    /*public  String generateNextId() throws SQLException, ClassNotFoundException;
 
 
 
@@ -32,5 +32,5 @@ public interface RentBO extends SuperBO {
 
 
 
-    public int countRent() throws SQLException, ClassNotFoundException ;
+    public int countRent() throws SQLException, ClassNotFoundException ;*/
 }

@@ -14,7 +14,7 @@ public class CustomerDAOImpl implements CustomerDAO {
  @Override
  public boolean delete(String id) throws SQLException, ClassNotFoundException {
 
-  return SQLUtil.execute("delete from customer where CusId=?" ,id);
+  return SQLUtil.execute("DELETE from customer where CusId=?" ,id);
  }
 
 
@@ -39,7 +39,7 @@ public class CustomerDAOImpl implements CustomerDAO {
  @Override
  public boolean save(Customer entity) throws SQLException, ClassNotFoundException {
 
-  return SQLUtil.execute("insert into customer values(?,?,?,?,?,?,?)",
+  return SQLUtil.execute("INSERT into customer values(?,?,?,?,?,?,?)",
       entity.getCusID(),
       entity.getCusName(),
       entity.getSex(),
@@ -50,7 +50,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
  }
 
- @Override
+/* @Override
  public ArrayList<Customer> getIds() throws SQLException, ClassNotFoundException {
   return SQLUtil.execute("SELECT CusID FROM customer");
  }
@@ -58,12 +58,12 @@ public class CustomerDAOImpl implements CustomerDAO {
  @Override
  public boolean search(String cId) throws SQLException, ClassNotFoundException {
   return SQLUtil.execute("select * from customer where CusId=?",cId);
- }
+ }*/
 
 
  @Override
  public ArrayList<Customer> getAll() throws SQLException, ClassNotFoundException {
-     ResultSet rs = SQLUtil.execute("select * from customer");
+     ResultSet rs = SQLUtil.execute("SELECT * from customer");
      ArrayList<Customer> allCustomers = new ArrayList<>();
 
   while (rs.next()) {
@@ -85,7 +85,7 @@ public class CustomerDAOImpl implements CustomerDAO {
  @Override
  public int count() throws SQLException, ClassNotFoundException {
 
-        ResultSet resultSet = SQLUtil.execute("select count(CusID) as customer_count from customer");
+        ResultSet resultSet = SQLUtil.execute("SELECT count(CusID) as customer_count from customer");
 
         if (resultSet.next()){
             int customerCount = Integer.parseInt(resultSet.getString("customer_count"));

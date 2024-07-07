@@ -18,9 +18,9 @@ public interface CrudDAO <T> extends SuperDAO{
 
     public  boolean save(T entity) throws SQLException, ClassNotFoundException;
 
-    public ArrayList<Customer> getIds() throws SQLException, ClassNotFoundException;
+   // public ArrayList<Customer> getIds() throws SQLException, ClassNotFoundException;
 
-    public boolean search(String id) throws SQLException, ClassNotFoundException;
+  //  public boolean search(String id) throws SQLException, ClassNotFoundException;
 
     public ArrayList<T> getAll() throws SQLException, ClassNotFoundException;
 

@@ -5,6 +5,7 @@ import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.EmployeeDAO;
 import lk.ijse.entity.Customer;
 import lk.ijse.entity.Employee;
+import lk.ijse.model.CustomerDTO;
 import lk.ijse.model.EmployeeDTO;
 
 import java.sql.ResultSet;
@@ -17,54 +18,48 @@ public class EmployeeBOImpl implements EmployeeBO {
     EmployeeDAO employeeDAO = (EmployeeDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.EMPLOYEE);
 
     @Override
-    public ResultSet generateNextEmpId() throws SQLException, ClassNotFoundException {
-
+    public ResultSet generateNextIdEmployee() throws SQLException, ClassNotFoundException {
         return employeeDAO.generateNextId();
-
     }
-
-
- @Override
-    public  boolean saveEmployee(Employee dto) throws SQLException, ClassNotFoundException {
-
-        return employeeDAO.save(new Employee(dto.getEmpID(),dto.getName(),dto.getType(),dto.getEmail(),dto.getDOB()));
-
-    }
- @Override
-    public  boolean updateEmployee(Employee dto) throws SQLException, ClassNotFoundException {
-
-        return employeeDAO.update(new Employee(dto.getEmpID(),dto.getName(),dto.getType(),dto.getDOB(),dto.getEmail()));
-
-
-    }
-
-
-
 
     @Override
-    public ArrayList<EmployeeDTO> getEmployee() throws SQLException, ClassNotFoundException {
-
-
-        ArrayList<EmployeeDTO> allEmployees = new ArrayList<>();
-        ArrayList<Employee> all =  employeeDAO.getAll();
-        for (Employee employee : all) {
-            allEmployees.add(new EmployeeDTO(employee.getEmpID(),employee.getName(),employee.getType(),employee.getDOB(),employee.getEmail()));
-        }
-        return allEmployees;
+    public boolean saveEmployee(EmployeeDTO dto) throws SQLException, ClassNotFoundException {
+        return employeeDAO.save(new Employee(dto.getEmpID(),dto.getName(),dto.getType(),dto.getEmail(),dto.getDOB(),dto.getUserID()));
     }
+
+    @Override
+    public boolean updateEmployee(EmployeeDTO dto) throws SQLException, ClassNotFoundException {
+        return employeeDAO.update(new Employee(dto.getEmpID(),dto.getName(),dto.getType(),dto.getEmail(),dto.getDOB(),dto.getUserID()));
+    }
+
 
     @Override
     public boolean deleteEmployee(String id) throws SQLException, ClassNotFoundException {
         return employeeDAO.delete(id);
     }
 
+   /* @Override
+    public ArrayList<CustomerDTO> getIds() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
     @Override
-    public List<String> getEmpId() throws SQLException, ClassNotFoundException {
-       ArrayList<EmployeeDTO>allEmpId = new ArrayList<>();
-       ArrayList<Customer> allId = employeeDAO.getIds();
-       for (Employee employee : allId) {
-           allEmpId.add(new EmployeeDTO(employee.getEmpID(),employee.getName(),employee.getType(),employee.getDOB(),employee.getEmail()));
-       }
-        return allEmpId;
+    public boolean searchEmployee(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }*/
+
+    @Override
+    public ArrayList<EmployeeDTO> getAllEmployees() throws SQLException, ClassNotFoundException {
+        ArrayList<EmployeeDTO> allemployees = new ArrayList<>();
+        ArrayList<Employee> all = employeeDAO.getAll();
+        for (Employee employee : all) {
+            allemployees.add(new EmployeeDTO(employee.getEmpID(),employee.getName(),employee.getType(),employee.getEmail(),employee.getDOB(),employee.getUserID()));
+        }
+        return allemployees;
+    }
+
+    @Override
+    public int countEmployee() throws SQLException, ClassNotFoundException {
+        return employeeDAO.count();
     }
 }

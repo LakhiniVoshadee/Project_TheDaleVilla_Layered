@@ -16,16 +16,16 @@ public interface CustomerBO extends SuperBO {
     public boolean updateCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException ;
 
 
-    public ResultSet generateNextId() throws SQLException, ClassNotFoundException ;
+    ResultSet generateNextId() throws SQLException, ClassNotFoundException ;
 
 
     public boolean saveCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException ;
 
 
-    public ArrayList<CustomerDTO> getCusIds() throws SQLException, ClassNotFoundException ;
+    //public ArrayList<CustomerDTO> getCusIds() throws SQLException, ClassNotFoundException ;
 
 
-    public boolean searchCustomer(String cId) throws SQLException, ClassNotFoundException ;
+  //  public boolean searchCustomer(String cId) throws SQLException, ClassNotFoundException ;
 
 
 
