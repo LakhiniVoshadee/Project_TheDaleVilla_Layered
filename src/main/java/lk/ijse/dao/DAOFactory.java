@@ -4,9 +4,7 @@ import lk.ijse.dao.custom.CustomerDAO;
 import lk.ijse.dao.custom.EmployeeDAO;
 import lk.ijse.dao.custom.RentDAO;
 import lk.ijse.dao.custom.RoomDAO;
-import lk.ijse.dao.custom.impl.AdminDAOImpl;
-import lk.ijse.dao.custom.impl.CustomerDAOImpl;
-import lk.ijse.dao.custom.impl.EmployeeDAOImpl;
+import lk.ijse.dao.custom.impl.*;
 /*import lk.ijse.dao.custom.impl.RentDAOImpl;
 import lk.ijse.dao.custom.impl.RoomDAOImpl;*/
 
@@ -32,10 +30,10 @@ public class DAOFactory {
                     return new EmployeeDAOImpl();
             case ADMIN:
                 return new AdminDAOImpl();
-                    /*case ROOM:
+                    case ROOM:
                         return new RoomDAOImpl();
                         case RENT:
-                            return new RentDAOImpl();*/
+                            return new RentDAOImpl();
             default:
                 return null;
         }

@@ -12,16 +12,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class RoomBOImpl implements RoomBO {
-/*
-    RoomDAO roomDAO =  (RoomDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ROOM);
+
+    RoomDAO roomDAO = (RoomDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ROOM);
+
+
     @Override
     public boolean deleteRoom(String id) throws SQLException, ClassNotFoundException {
         return roomDAO.delete(id);
-    }
-
-    @Override
-    public boolean updateRoom(T entity) throws SQLException, ClassNotFoundException {
-        return false;
     }
 
     @Override
@@ -35,36 +32,22 @@ public class RoomBOImpl implements RoomBO {
     }
 
     @Override
-    public boolean saveRoom(T entity) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
     public boolean saveRoom(RoomDTO dto) throws SQLException, ClassNotFoundException {
         return roomDAO.save(new Room(dto.getRoomID(),dto.getType(),dto.getDate(),dto.getCustomerId(),dto.getUnitPrice(),dto.getQty()));
     }
 
     @Override
-    public ArrayList<RoomDTO> getRoomIds() throws SQLException, ClassNotFoundException {
-        ArrayList<RoomDTO> rooms = new ArrayList<>();
-        ArrayList<Room> allRooms = roomDAO.getAll();
-        for (Room room : allRooms) {
-
+    public ArrayList<RoomDTO> getAllRooms() throws SQLException, ClassNotFoundException {
+        ArrayList<RoomDTO> allRooms = new ArrayList<>();
+        ArrayList<Room> all = roomDAO.getAll();
+        for (Room room : all) {
+            allRooms.add(new RoomDTO(room.getRoomID(),room.getType(),room.getDate(),room.getCustomerId(),room.getUnitPrice(),room.getQty()));
         }
-    }
-
-    @Override
-    public boolean searchRoom(String id) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public ArrayList<T> getAllRooms() throws SQLException, ClassNotFoundException {
-        return null;
+        return allRooms;
     }
 
     @Override
     public int countRoom() throws SQLException, ClassNotFoundException {
-        return 0;
-    }*/
+        return roomDAO.count();
+    }
 }

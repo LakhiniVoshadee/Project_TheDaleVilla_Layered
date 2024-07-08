@@ -1,4 +1,4 @@
-/*
+
 package lk.ijse.dao.custom.impl;
 
 import lk.ijse.dao.SQLUtil;
@@ -38,7 +38,7 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public boolean save(Room entity) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("Insert into room values(?,?,?,?,?,?)",
+        return SQLUtil.execute("INSERT into room values(?,?,?,?,?,?)",
                 entity.getRoomID(),
                 entity.getType(),
                 entity.getDate(),
@@ -49,7 +49,7 @@ public class RoomDAOImpl implements RoomDAO {
                 );
     }
 
-    @Override
+   /* @Override
     public ArrayList<Customer> getIds() throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("select RoomID from room");
     }
@@ -57,7 +57,7 @@ public class RoomDAOImpl implements RoomDAO {
     @Override
     public boolean search(String id) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("SELECT * FROM room WHERE RoomID = ?", id);
-    }
+    }*/
 
     @Override
     public ArrayList<Room> getAll() throws SQLException, ClassNotFoundException {
@@ -84,9 +84,10 @@ public class RoomDAOImpl implements RoomDAO {
 
         if (resultSet.next()) {
             int roomCount = Integer.parseInt(resultSet.getString("room_count"));
+            return roomCount;
         }
 
         return Integer.parseInt(null);
     }
 }
-*/
+

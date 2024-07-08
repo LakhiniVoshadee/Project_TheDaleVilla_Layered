@@ -1,4 +1,4 @@
-/*
+
 
 package lk.ijse.dao.custom.impl;
 
@@ -17,46 +17,64 @@ public class RentDAOImpl implements RentDAO {
 
     @Override
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        return SQLUtil.execute("DELETE FROM Rent WHERE RentID = ?",id);
     }
 
     @Override
     public boolean update(Rent entity) throws SQLException, ClassNotFoundException {
-        return false;
+        return SQLUtil.execute("Update Rent set Type = ?, Qty = ?, Description = ? , UnitPrice = ? where RentID = ?",
+                entity.getType(),
+                entity.getQty(),
+                entity.getDescription(),
+                entity.getUnitPrice());
     }
 
     @Override
     public ResultSet generateNextId() throws SQLException, ClassNotFoundException {
-        return null;
+        return SQLUtil.execute("SELECT RentID FROM Rent order by RentID desc LIMIT 1");
     }
 
     @Override
     public boolean save(Rent entity) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public ArrayList<Customer> getIds() throws SQLException, ClassNotFoundException {
-        return null;
-    }
-
-    @Override
-    public boolean search(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        return SQLUtil.execute("INSERT INTO Rent VALUES(?,?,?,?,?)",
+                entity.getRentID(),
+                entity.getType(),
+                entity.getQty(),
+                entity.getDescription(),
+                entity.getUnitPrice());
     }
 
     @Override
     public ArrayList<Rent> getAll() throws SQLException, ClassNotFoundException {
-        return null;
+        ResultSet resultSet = SQLUtil.execute("SELECT * FROM Rent");
+        ArrayList<Rent> rents = new ArrayList<>();
+
+        while (resultSet.next()) {
+            Rent rent = new Rent(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getInt(3),
+                    resultSet.getString(4),
+                    resultSet.getDouble(5)
+            );
+            rents.add(rent);
+        }
+        return rents;
     }
 
     @Override
     public int count() throws SQLException, ClassNotFoundException {
-        return 0;
+        ResultSet resultSet = SQLUtil.execute("SELECT count(RentID) as rent_count from Rent");
+
+        if (resultSet.next()){
+            int rentCount = Integer.parseInt(resultSet.getString("rent_count"));
+            return rentCount;
+        }
+        return Integer.parseInt(null);
     }
 }
 
 
 
 
-*/
+
