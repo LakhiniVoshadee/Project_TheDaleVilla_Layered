@@ -22,7 +22,7 @@ public class RentDAOImpl implements RentDAO {
 
     @Override
     public boolean update(Rent entity) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("Update Rent set Type = ?, Qty = ?, Description = ? , UnitPrice = ? where RentID = ?",
+        return SQLUtil.execute("UPDATE Rent set Type = ?, Qty = ?, Description = ? , UnitPrice = ? where RentID = ?",
                 entity.getType(),
                 entity.getQty(),
                 entity.getDescription(),
@@ -42,6 +42,16 @@ public class RentDAOImpl implements RentDAO {
                 entity.getQty(),
                 entity.getDescription(),
                 entity.getUnitPrice());
+    }
+
+    @Override
+    public List<String> getIds() throws SQLException, ClassNotFoundException {
+        return List.of();
+    }
+
+    @Override
+    public boolean search(String id) throws SQLException, ClassNotFoundException {
+        return false;
     }
 
     @Override

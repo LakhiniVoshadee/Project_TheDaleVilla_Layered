@@ -8,6 +8,7 @@ import lk.ijse.entity.Employee;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
@@ -37,6 +38,16 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                 entity.getEmail(),
                 entity.getDOB(),
                 entity.getUserID());
+    }
+
+    @Override
+    public List<String> getIds() throws SQLException, ClassNotFoundException {
+        return List.of();
+    }
+
+    @Override
+    public boolean search(String id) throws SQLException, ClassNotFoundException {
+        return false;
     }
 
 

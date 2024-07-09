@@ -8,6 +8,7 @@ import lk.ijse.entity.Customer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerDAOImpl implements CustomerDAO {
 
@@ -49,15 +50,20 @@ public class CustomerDAOImpl implements CustomerDAO {
 
  }
 
-/* @Override
- public ArrayList<Customer> getIds() throws SQLException, ClassNotFoundException {
-  return SQLUtil.execute("SELECT CusID FROM customer");
+ @Override
+ public List<String> getIds() throws SQLException, ClassNotFoundException {
+  ResultSet rst = SQLUtil.execute("SELECT CusID FROM customer");
+  List<String> ids = new ArrayList<>();
+  while (rst.next()) {
+      ids.add(rst.getString(1));
+  }
+  return ids;
  }
 
  @Override
  public boolean search(String cId) throws SQLException, ClassNotFoundException {
   return SQLUtil.execute("select * from customer where CusId=?",cId);
- }*/
+ }
 
 
  @Override

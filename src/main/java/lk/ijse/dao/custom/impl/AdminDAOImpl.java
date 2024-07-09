@@ -9,6 +9,7 @@ import lk.ijse.entity.Customer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdminDAOImpl implements AdminDAO {
 
@@ -30,6 +31,16 @@ public class AdminDAOImpl implements AdminDAO {
 
     @Override
     public boolean save(Admin entity) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public List<String> getIds() throws SQLException, ClassNotFoundException {
+        return List.of();
+    }
+
+    @Override
+    public boolean search(String id) throws SQLException, ClassNotFoundException {
         return false;
     }
 

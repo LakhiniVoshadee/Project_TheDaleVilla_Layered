@@ -9,6 +9,7 @@ import lk.ijse.entity.Room;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RoomDAOImpl implements RoomDAO {
 
@@ -19,16 +20,14 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public boolean update(Room entity) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("Update room Set Type = ?, Date = ?  , UnitPrice = ?, Qty = ? , CusID = ? where RoomID = ?",
+        return SQLUtil.execute("UPDATE room Set Type = ?, Date = ?  , UnitPrice = ?, Qty = ? , CusID = ? where RoomID = ?",
                 entity.getType(),
                 entity.getDate(),
                 entity.getUnitPrice(),
                 entity.getQty(),
                 entity.getCustomerId(),
                 entity.getRoomID()
-
                 );
-
     }
 
     @Override
@@ -40,13 +39,23 @@ public class RoomDAOImpl implements RoomDAO {
     public boolean save(Room entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("INSERT into room values(?,?,?,?,?,?)",
                 entity.getRoomID(),
+
                 entity.getType(),
                 entity.getDate(),
+                entity.getCustomerId(),
                 entity.getUnitPrice(),
                 entity.getQty()
-
-
                 );
+    }
+
+    @Override
+    public List<String> getIds() throws SQLException, ClassNotFoundException {
+        return List.of();
+    }
+
+    @Override
+    public boolean search(String id) throws SQLException, ClassNotFoundException {
+        return false;
     }
 
    /* @Override
@@ -61,7 +70,7 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public ArrayList<Room> getAll() throws SQLException, ClassNotFoundException {
-       ResultSet rs = SQLUtil.execute("select * from room");
+       ResultSet rs = SQLUtil.execute("SELECT * from room");
        ArrayList<Room> rooms = new ArrayList<>();
 
        while (rs.next()) {
@@ -80,7 +89,7 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public int count() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet  = SQLUtil.execute("select count(RoomID) as room_count from room");
+        ResultSet resultSet  = SQLUtil.execute("SELECT count(RoomID) as room_count from room");
 
         if (resultSet.next()) {
             int roomCount = Integer.parseInt(resultSet.getString("room_count"));
