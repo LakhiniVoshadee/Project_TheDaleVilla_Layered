@@ -7,10 +7,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.Cursor;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import lk.ijse.bo.BOFactory;
@@ -18,10 +16,12 @@ import lk.ijse.bo.custom.CustomerBO;
 import lk.ijse.bo.custom.RoomBO;
 import lk.ijse.model.CustomerDTO;
 import lk.ijse.model.RoomDTO;
+import lk.ijse.tdm.RoomBookingTM;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class RoomBookingFormController  implements Initializable {
@@ -91,10 +91,13 @@ public class RoomBookingFormController  implements Initializable {
     private Pane pagingPane;
 
     @FXML
-    private TableView<?> tblRmBookingCart;
+    private TableView<RoomBookingTM> tblRmBookingCart;
 
     @FXML
     private TextField txtQty;
+
+    private ObservableList<RoomBookingTM> cartList = FXCollections.observableArrayList();
+    private double netTotal = 0;
 
     CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
     RoomBO roomBO = (RoomBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ROOM);
@@ -127,6 +130,19 @@ public class RoomBookingFormController  implements Initializable {
     }
 
     private void getRoomId() {
+        ObservableList<String> roomList = FXCollections.observableArrayList();
+
+        try {
+           List<String>roomIdList =  roomBO.getRoomIds();
+           for (String roomId : roomIdList) {
+               roomList.add(roomId);
+           }
+           cmbRoomId.setItems(roomList);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -142,7 +158,62 @@ public class RoomBookingFormController  implements Initializable {
 
     @FXML
     void addToCartOnAction(ActionEvent event) {
+        String RoomId = cmbRoomId.getValue();
+        String Type = lblType.getText();
+        int Qty = Integer.parseInt(txtQty.getText());
+        double UnitPrice = Double.parseDouble(lblUnitPrice.getText());
+        String QtyOnHand = lblQtyOHand.getText();
+        double Total = Qty * UnitPrice;
+        JFXButton btnRemove = new JFXButton("Remove");
+        btnRemove.setCursor(Cursor.HAND);
 
+        btnRemove.setOnAction(e  ->{
+            ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+            ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            Optional<ButtonType> Desc = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure want to remove?", yes, no).showAndWait();
+
+            if (Desc.orElse(no) == yes){
+                int selectedIndex = tblRmBookingCart.getSelectionModel().getSelectedIndex();
+                cartList.remove(selectedIndex);
+
+                tblRmBookingCart.refresh();
+                calculateNetTotal();
+            }
+        });
+
+        for (int i=0; i<tblRmBookingCart.getItems().size(); i++ ){
+            if (RoomId.equals(colRmId.getCellData(i))){
+                Qty += cartList.get(i).getQty();
+                Total = UnitPrice * Qty;
+
+                cartList.get(i).setQty(Qty);
+                cartList.get(i).setTotal(Total);
+
+                tblRmBookingCart.refresh();
+                calculateNetTotal();
+                txtQty.setText("");
+                return;
+            }
+
+        }
+
+        RoomBookingTM roomBookingTm = new RoomBookingTM(RoomId, Type, UnitPrice, QtyOnHand, Qty, Total, btnRemove);
+        cartList.add(roomBookingTm);
+
+        tblRmBookingCart.setItems(cartList);
+        txtQty.setText("");
+        calculateNetTotal();
+
+    }
+
+    private void calculateNetTotal() {
+        netTotal = 0;
+        for (int i = 0; i <tblRmBookingCart.getItems().size(); i++) {
+            netTotal += (double) colTotal.getCellData(i);
+
+        }
+        lblNetTotal.setText(String.valueOf(netTotal));
     }
 
     @FXML
