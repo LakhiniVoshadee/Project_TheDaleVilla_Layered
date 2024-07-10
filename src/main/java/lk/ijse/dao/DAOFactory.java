@@ -19,7 +19,7 @@ public class DAOFactory {
     }
 
     public enum DAOTypes{
-        CUSTOMER,EMPLOYEE,ROOM,RENT,ADMIN
+        CUSTOMER,EMPLOYEE,ROOM,RENT,ROOM_BOOKING,ROOM_DETAILS,ADMIN
     }
 
     public SuperDAO getDAO(DAOTypes type) {
@@ -34,6 +34,10 @@ public class DAOFactory {
                         return new RoomDAOImpl();
                         case RENT:
                             return new RentDAOImpl();
+                            case ROOM_BOOKING:
+                                return new RoomBookingDAOImpl();
+                                case ROOM_DETAILS:
+                                    return new RoomDetailsDAOImpl();
             default:
                 return null;
         }

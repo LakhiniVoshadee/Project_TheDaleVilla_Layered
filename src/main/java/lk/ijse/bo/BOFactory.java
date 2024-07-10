@@ -15,7 +15,7 @@ public class BOFactory {
     }
 
     public enum BOTypes{
-        CUSTOMER,EMPLOYEE,ROOM,RENT,ADMIN
+        CUSTOMER,EMPLOYEE,ROOM,RENT,Room_BOOKING,ROOM_DETAILS,ADMIN
     }
 
     public SuperBO getBO(BOTypes Type){
@@ -28,6 +28,10 @@ public class BOFactory {
                         return new RoomBOImpl();
                         case RENT:
                             return new RentBOImpl();
+                               case Room_BOOKING:
+                                  return new RoomBookingBOImpl();
+                                     case ROOM_DETAILS:
+                                         return new RoomDetailsBOImpl();
                              case ADMIN:
                                   return new AdminBOImpl();
             default:
