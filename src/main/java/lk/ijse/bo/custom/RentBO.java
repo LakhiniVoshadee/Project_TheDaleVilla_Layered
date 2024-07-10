@@ -6,6 +6,7 @@ import lk.ijse.model.RentDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface RentBO extends SuperBO {
 
@@ -25,4 +26,10 @@ public interface RentBO extends SuperBO {
 
 
     public int countRent() throws SQLException, ClassNotFoundException ;
+
+
+    public List<String> getRentIds() throws SQLException, ClassNotFoundException ;
+
+
+    public RentDTO searchRent(String id) throws SQLException, ClassNotFoundException ;
 }

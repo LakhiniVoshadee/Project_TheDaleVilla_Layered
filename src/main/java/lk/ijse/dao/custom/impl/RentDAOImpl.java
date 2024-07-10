@@ -17,26 +17,27 @@ public class RentDAOImpl implements RentDAO {
 
     @Override
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("DELETE FROM Rent WHERE RentID = ?",id);
+        return SQLUtil.execute("DELETE FROM rent WHERE RentID = ?",id);
     }
 
     @Override
     public boolean update(Rent entity) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("UPDATE Rent set Type = ?, Qty = ?, Description = ? , UnitPrice = ? where RentID = ?",
+        return SQLUtil.execute("UPDATE rent set Type = ?, Qty = ?, Description = ? , UnitPrice = ? where RentID = ?",
                 entity.getType(),
                 entity.getQty(),
                 entity.getDescription(),
-                entity.getUnitPrice());
+                entity.getUnitPrice(),
+                entity.getRentID());
     }
 
     @Override
     public ResultSet generateNextId() throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("SELECT RentID FROM Rent order by RentID desc LIMIT 1");
+        return SQLUtil.execute("SELECT RentID FROM rent order by RentID desc LIMIT 1");
     }
 
     @Override
     public boolean save(Rent entity) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("INSERT INTO Rent VALUES(?,?,?,?,?)",
+        return SQLUtil.execute("INSERT INTO rent VALUES(?,?,?,?,?)",
                 entity.getRentID(),
                 entity.getType(),
                 entity.getQty(),
@@ -46,17 +47,22 @@ public class RentDAOImpl implements RentDAO {
 
     @Override
     public List<String> getIds() throws SQLException, ClassNotFoundException {
-        return List.of();
+       ResultSet rs = SQLUtil.execute("SELECT RentID FROM rent");
+       List<String> list = new ArrayList<>();
+       while (rs.next()) {
+           list.add(rs.getString(1));
+       }
+       return list;
     }
 
     @Override
-    public boolean search(String id) throws SQLException, ClassNotFoundException {
-        return false;
+    public Rent search(String id) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute("SELECT RentID FROM rent WHERE RentID = ?",id);
     }
 
     @Override
     public ArrayList<Rent> getAll() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtil.execute("SELECT * FROM Rent");
+        ResultSet resultSet = SQLUtil.execute("SELECT * FROM rent");
         ArrayList<Rent> rents = new ArrayList<>();
 
         while (resultSet.next()) {

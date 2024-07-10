@@ -150,30 +150,12 @@ public class CustomerFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         txtCusId.setText(generateCustomerId());
-        //  this.customerList=getAllCustomer();
         setCellValueFactory();
         loadCustomerTable();
-
-       /* Pattern patternId = Pattern.compile("^([A-Z0-9])$");
-        Pattern patternName = Pattern.compile("^[A-z|\\\\s]{3,}$");
-        Pattern patternSex = Pattern.compile("^(male|female|non-binary|genderqueer|genderfluid|transgender|agender|bigender|gender nonconforming|gender questioning|gender variant|genderqueer|intersex|neutrois|pangender|third gender)$");
-        Pattern patternNIC = Pattern.compile("^[0-9 a-z]{10}$");
-        Pattern patternContact = Pattern.compile("^([+]94{1,3}|[0])([1-9]{2})([0-9]){7}$");
-        Pattern patternEmail = Pattern.compile("^([A-z])([A-z0-9.]){1,}[@]([A-z0-9]){1,10}[.]([A-z]){2,5}$");
-
-        map.put(txtCusId, patternId);
-        map.put(txtCusName, patternName);
-        map.put(txtSex, patternSex);
-        map.put(txtNic, patternNIC);
-        map.put(txtContact, patternContact);
-        map.put(txtEmail, patternEmail);
-
-        */
-
     }
 
-    public String generateCustomerId() {
 
+    public String generateCustomerId() {
         try {
            ResultSet resultSet= customerBO.generateNextId();
            String currentCusId = "";
@@ -187,7 +169,6 @@ public class CustomerFormController implements Initializable {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
 
     }
 
@@ -219,18 +200,22 @@ public class CustomerFormController implements Initializable {
     }
 
     private void loadCustomerTable() {
+        ObservableList<CustomerTM> data = FXCollections.observableArrayList();
         try {
             ArrayList<CustomerDTO> customerList = customerBO.getAllCustomers();
             for (CustomerDTO customer : customerList) {
-              tblCustomer.getItems().add(new CustomerTM(
+              CustomerTM customerTM = new CustomerTM(
                         customer.getCusID(),
                         customer.getCusName(),
                         customer.getSex(),
                         customer.getNic(),
                         customer.getContact(),
                         customer.getEmail(),
-                        customer.getUserID()));
+                        customer.getUserID());
+              data.add(customerTM);
             }
+            tblCustomer.setItems(data);
+            tblCustomer.refresh();
 
         }catch (SQLException e){
             new Alert(Alert.AlertType.ERROR,"Something went wrong").show();
@@ -260,14 +245,14 @@ public class CustomerFormController implements Initializable {
         String nic = txtNic.getText();
         String contact = txtContact.getText();
         String email = txtEmail.getText();
-      //  LoginFormController userId = LoginFormController.getInstance();
         String userId = "U001";
 
         try {
             boolean isSaved =customerBO.saveCustomer(new CustomerDTO(id,name,sex,nic,contact,email,userId));
             if (isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer saved successfully").show();
-                loadCustomerTable();
+              tblCustomer.getItems().add(new CustomerTM(id,name,sex,nic,contact,email,userId));
+              tblCustomer.refresh();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -285,7 +270,6 @@ public class CustomerFormController implements Initializable {
         String nic = txtNic.getText();
         String contact = txtContact.getText();
         String email = txtEmail.getText();
-        //String userId = LoginFormController.getInstance().userId;
         String userId = "U001";
 
         try {

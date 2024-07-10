@@ -15,7 +15,7 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("DELETE FROM room WHERE id = ?", id);
+        return SQLUtil.execute("DELETE FROM room WHERE RoomID = ?", id);
     }
 
     @Override
@@ -39,7 +39,6 @@ public class RoomDAOImpl implements RoomDAO {
     public boolean save(Room entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("INSERT into room values(?,?,?,?,?,?)",
                 entity.getRoomID(),
-
                 entity.getType(),
                 entity.getDate(),
                 entity.getCustomerId(),
@@ -50,12 +49,17 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public List<String> getIds() throws SQLException, ClassNotFoundException {
-        return List.of();
+        ResultSet rst = SQLUtil.execute("SELECT RoomID FROM room");
+        List<String> ids = new ArrayList<>();
+        while (rst.next()) {
+            ids.add(rst.getString(1));
+        }
+        return ids;
     }
 
     @Override
-    public boolean search(String id) throws SQLException, ClassNotFoundException {
-        return false;
+    public Room search(String id) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute("SELECT * from room where RoomID=?",id);
     }
 
    /* @Override

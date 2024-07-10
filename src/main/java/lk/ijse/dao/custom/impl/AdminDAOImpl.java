@@ -40,8 +40,8 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     @Override
-    public boolean search(String id) throws SQLException, ClassNotFoundException {
-        return false;
+    public Admin search(String id) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute("SELECT RoomID FROM room WHERE RoomID = ?",id);
     }
 
    /* @Override

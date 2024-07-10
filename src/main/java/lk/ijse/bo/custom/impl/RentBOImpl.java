@@ -10,6 +10,7 @@ import lk.ijse.model.RentDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RentBOImpl implements RentBO {
 
@@ -48,6 +49,18 @@ public class RentBOImpl implements RentBO {
     @Override
     public int countRent() throws SQLException, ClassNotFoundException {
         return rentDAO.count();
+    }
+
+    @Override
+    public List<String> getRentIds() throws SQLException, ClassNotFoundException {
+        return rentDAO.getIds();
+    }
+
+    @Override
+    public RentDTO searchRent(String id) throws SQLException, ClassNotFoundException {
+        Rent rent = rentDAO.search(id);
+        RentDTO rentDTO = new RentDTO(rent.getRentID(),rent.getType(),rent.getQty(),rent.getDescription(),rent.getUnitPrice());
+        return rentDTO;
     }
 }
 

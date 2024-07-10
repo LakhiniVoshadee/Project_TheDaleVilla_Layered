@@ -21,7 +21,7 @@ public interface CustomerBO extends SuperBO {
 
     List<String> getCusIds() throws SQLException, ClassNotFoundException;
 
-    boolean searchCustomer(String cId) throws SQLException, ClassNotFoundException;
+    CustomerDTO searchCustomer(String cId) throws SQLException, ClassNotFoundException;
 
     public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException ;
 

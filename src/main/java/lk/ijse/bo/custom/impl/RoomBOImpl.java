@@ -3,13 +3,13 @@ package lk.ijse.bo.custom.impl;
 import lk.ijse.bo.custom.RoomBO;
 import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.RoomDAO;
-import lk.ijse.entity.Customer;
 import lk.ijse.entity.Room;
 import lk.ijse.model.RoomDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RoomBOImpl implements RoomBO {
 
@@ -49,5 +49,17 @@ public class RoomBOImpl implements RoomBO {
     @Override
     public int countRoom() throws SQLException, ClassNotFoundException {
         return roomDAO.count();
+    }
+
+    @Override
+    public List<String> getRoomIds() throws SQLException, ClassNotFoundException {
+        return roomDAO.getIds();
+    }
+
+    @Override
+    public RoomDTO searchRoom(String id) throws SQLException, ClassNotFoundException {
+        Room room = roomDAO.search(id);
+        RoomDTO roomDTO = new RoomDTO(room.getRoomID(),room.getType(),room.getDate(),room.getCustomerId(),room.getUnitPrice(),room.getQty());
+        return roomDTO;
     }
 }

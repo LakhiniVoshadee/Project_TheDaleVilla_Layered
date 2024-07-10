@@ -1,5 +1,6 @@
 package lk.ijse.controller;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -92,21 +93,26 @@ public class EmployeeFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        txtEmpId.setText(generateEmployeeId());
-       loadEmployeeTable();
-       setCellValueFactory();
+        try {
+            txtEmpId.setText(generateEmployeeId());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+            loadEmployeeTable();
+            setCellValueFactory();
+
     }
 
     private String generateEmployeeId() {
 
         try {
             ResultSet resultSet= employeeBO.generateNextEmpId();
-            String currentCusId = "";
+            String currentEmpId = "";
             if (resultSet.next()) {
-                currentCusId = resultSet.getString(1);
-                return nextCusId(currentCusId);
+                currentEmpId = resultSet.getString(1);
+                return nextEmpId(currentEmpId);
             }
-            return nextCusId(null);
+            return nextEmpId(null);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -115,14 +121,14 @@ public class EmployeeFormController implements Initializable {
 
     }
 
-    private String nextCusId(String currentCusId) {
-        if (currentCusId != null){
-            String[] split = currentCusId.split("Emp ");
+    private String nextEmpId(String currentEmpId) {
+        if (currentEmpId != null){
+            String[] split = currentEmpId.split("Emp ");
             int EmpId = Integer.parseInt(split[1]);
             EmpId++;
-            return "Cus " + EmpId;
+            return "Emp " + EmpId;
         }
-        return "Cus 1";
+        return "Emp 1";
 
     }
 
@@ -135,17 +141,22 @@ public class EmployeeFormController implements Initializable {
     }
 
     private void loadEmployeeTable() {
+        ObservableList<EmployeeTM> employees = FXCollections.observableArrayList();
         try {
             ArrayList<EmployeeDTO> employeeList = employeeBO.getAllEmployees();
             for (EmployeeDTO employee : employeeList){
-                tblEmployee.getItems().add(new EmployeeTM(
+                EmployeeTM employeeTM = new EmployeeTM(
                         employee.getEmpID(),
                         employee.getName(),
                         employee.getType(),
                         employee.getEmail(),
                         employee.getDOB(),
-                        employee.getUserID()));
+                        employee.getUserID());
+                employees.add(employeeTM);
             }
+            tblEmployee.setItems(employees);
+            tblEmployee.refresh();
+
         } catch (SQLException e){
             new Alert(Alert.AlertType.ERROR,"Something went wrong").show();
         }catch (ClassNotFoundException e){
@@ -160,7 +171,7 @@ public class EmployeeFormController implements Initializable {
         try {
             boolean isDeleted = employeeBO.deleteEmployee(id);
             if (isDeleted) {
-                new Alert(Alert.AlertType.INFORMATION, "Employee deleted successfully").show();
+                new Alert(Alert.AlertType.CONFIRMATION, "Employee deleted successfully").show();
                 loadEmployeeTable();
             }
         }catch (SQLException e){
@@ -177,14 +188,14 @@ public class EmployeeFormController implements Initializable {
         String type = txtType.getText();
         String email = txtEmail.getText();
         String dob = String.valueOf(pickerDate.getValue());
-        //String userId = LoginFormController.getInstance().userId;
         String userID = "U001";
 
         try {
             boolean isSaved =employeeBO.saveEmployee(new EmployeeDTO(id,name,type,email,dob,userID));
             if (isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Employee saved successfully").show();
-                loadEmployeeTable();
+                tblEmployee.getItems().add(new EmployeeTM(id,name,type,email,dob,userID));
+                tblEmployee.refresh();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -200,7 +211,6 @@ public class EmployeeFormController implements Initializable {
         String type = txtType.getText();
         String email = txtEmail.getText();
         String dob = String.valueOf(pickerDate.getValue());
-        //String userId = LoginFormController.getInstance().userId;
         String userID = "U001";
 
         try {

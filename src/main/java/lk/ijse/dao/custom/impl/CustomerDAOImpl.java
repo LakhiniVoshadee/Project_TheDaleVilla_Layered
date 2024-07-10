@@ -38,7 +38,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 
  @Override
  public boolean save(Customer entity) throws SQLException, ClassNotFoundException {
-
   return SQLUtil.execute("INSERT into customer values(?,?,?,?,?,?,?)",
       entity.getCusID(),
       entity.getCusName(),
@@ -61,7 +60,7 @@ public class CustomerDAOImpl implements CustomerDAO {
  }
 
  @Override
- public boolean search(String cId) throws SQLException, ClassNotFoundException {
+ public Customer search(String cId) throws SQLException, ClassNotFoundException {
   return SQLUtil.execute("select * from customer where CusId=?",cId);
  }
 

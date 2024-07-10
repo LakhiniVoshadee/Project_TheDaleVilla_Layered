@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import lk.ijse.bo.BOFactory;
@@ -84,20 +85,11 @@ public class RentFormController implements Initializable {
 
     private void setCellValueFactory() {
 
-        try {
-            ResultSet resultSet= rentBO.generateNextRentId();
-            String currentRentId = "";
-            if (resultSet.next()) {
-                currentRentId = resultSet.getString(1);
-                nextRentId(currentRentId);
-                return;
-            }
-            nextRentId(null);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        colId.setCellValueFactory(new PropertyValueFactory<>("RentID"));
+        colType.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        colQty.setCellValueFactory(new PropertyValueFactory<>("Qty"));
+        colDescription.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("UnitPrice"));
     }
 
     private String nextRentId(String currentRentId ) {
@@ -162,7 +154,6 @@ public class RentFormController implements Initializable {
         txtType.setText("");
         txtQty.setText("");
         txtDescription.setText("");
-        //txtQtyOnHand.setText("");
         txtUnitPrice.setText("");
     }
 
@@ -191,7 +182,6 @@ public class RentFormController implements Initializable {
         String Type = txtType.getText();
         int Qty = Integer.parseInt(txtQty.getText());
         String Description = txtDescription.getText();
-        // String QtyOnHand = txtQtyOnHand.getText();
         double UnitPrice = Double.parseDouble(txtUnitPrice.getText());
 
         try {
@@ -217,7 +207,6 @@ public class RentFormController implements Initializable {
         String Type = txtType.getText();
         int Qty = Integer.parseInt(txtQty.getText());
         String Description = txtDescription.getText();
-        // String QtyOnHand = txtQtyOnHand.getText();
         double UnitPrice = Double.parseDouble(txtUnitPrice.getText());
 
         try {

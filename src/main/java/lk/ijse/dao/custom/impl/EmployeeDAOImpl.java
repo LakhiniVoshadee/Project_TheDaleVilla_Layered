@@ -2,8 +2,8 @@ package lk.ijse.dao.custom.impl;
 
 import lk.ijse.dao.SQLUtil;
 import lk.ijse.dao.custom.EmployeeDAO;
-import lk.ijse.entity.Customer;
 import lk.ijse.entity.Employee;
+import lk.ijse.model.RoomDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,13 +13,20 @@ import java.util.List;
 public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("DELETE FROM employee WHERE id = ?", id);
+        return SQLUtil.execute("DELETE FROM employee WHERE EmpID = ?", id);
     }
 
 
     @Override
     public boolean update(Employee entity) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("UPDATE customer SET Name = ?, sex = ?, Nic =?, Contact =?, Email =? WHERE CusId=? ");
+        return SQLUtil.execute("UPDATE employee SET Name = ?,Type = ?,DOB = ?,Email = ?,UserID = ? WHERE EmpId = ? ",
+                entity.getName(),
+                entity.getType(),
+                entity.getDOB(),
+                entity.getEmail(),
+                entity.getUserID(),
+                entity.getEmpID()
+        );
     }
 
 
@@ -46,9 +53,19 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public boolean search(String id) throws SQLException, ClassNotFoundException {
-        return false;
+    public Employee search(String id) throws SQLException, ClassNotFoundException {
+        return null;
     }
+
+   /* @Override
+    public List<String> getIds() throws SQLException, ClassNotFoundException {
+        return List.of();
+    }
+
+    @Override
+    public RoomDTO search(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }*/
 
 
     @Override
