@@ -173,19 +173,21 @@ public class RoomFormController implements Initializable {
     }
 
     private void loadRoomTable() {
+        ObservableList<RoomTM> roomList = FXCollections.observableArrayList();
         try {
-            ArrayList<RoomDTO> roomList = roomBO.getAllRooms();
-            for (RoomDTO room : roomList) {
-                tblRoom.getItems().add(new RoomTM(
+            ArrayList<RoomDTO>  allroom = roomBO.getAllRooms();
+            for (RoomDTO room : allroom) {
+                RoomTM roomTM = new RoomTM(
                         room.getRoomID(),
                         room.getType(),
                         room.getDate(),
-                        room.getCustomerId(),
                         room.getUnitPrice(),
-                        room.getQty())
-
-                        );
+                                room.getQty(),
+                        room.getCustomerId());
+                roomList.add(roomTM);
             }
+            tblRoom.setItems(roomList);
+            tblRoom.refresh();
 
         }catch (SQLException e){
             new Alert(Alert.AlertType.ERROR,"Something went wrong").show();
@@ -199,16 +201,17 @@ public class RoomFormController implements Initializable {
         String id = txtRoomId.getText();
         String type = txtType.getText();
         String date = String.valueOf(txtDate.getValue());
-        String cusID = String.valueOf(cmbId.getValue());
-        double unitPrice = Double.parseDouble(txtUnitPrice.getText());
+        String cusID = cmbId.getValue();
+        Double unitPrice = Double.valueOf(txtUnitPrice.getText());
         String qty = txtQty.getText();
 
 
         try {
-            boolean isSaved =roomBO.saveRoom(new RoomDTO(id,type,date,cusID,unitPrice,qty));
+            boolean isSaved =roomBO.saveRoom(new RoomDTO(id,type,date,unitPrice,qty,cusID));
+            System.out.println("ok");
             if (isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Room saved successfully").show();
-                tblRoom.getItems().add(new RoomTM(id,type,date,cusID,unitPrice,qty));
+                tblRoom.getItems().add(new RoomTM(id,type,date,unitPrice,qty,cusID));
                 tblRoom.refresh();
             }
         } catch (SQLException e) {
@@ -223,12 +226,12 @@ public class RoomFormController implements Initializable {
         String id = txtRoomId.getText();
         String type = txtType.getText();
         String date = String.valueOf(txtDate.getValue());
-        String cusID = String.valueOf(cmbId.getValue());
-        double unitPrice = Double.parseDouble(txtUnitPrice.getText());
+        String cusID = cmbId.getValue();
+        Double unitPrice = Double.valueOf(txtUnitPrice.getText());
         String qty = txtQty.getText();
 
         try {
-            boolean isUpdated = roomBO.updateRoom(new RoomDTO(id,type,date,cusID,unitPrice,qty));
+            boolean isUpdated = roomBO.updateRoom(new RoomDTO(id,type,date,unitPrice,qty,cusID));
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer updated successfully").show();
                 loadRoomTable();
@@ -249,8 +252,9 @@ public class RoomFormController implements Initializable {
         txtRoomId.setText(columns.get(0).getCellData(row).toString());
         txtType.setText(columns.get(1).getCellData(row).toString());
         txtDate.setValue(LocalDate.parse(columns.get(2).getCellData(row).toString()));
-        txtUnitPrice.setText(columns.get(3).getCellData(row).toString());
-        txtQty.setText(columns.get(4).getCellData(row).toString());
+        cmbId.setValue(columns.get(3).getCellData(row).toString());
+        txtUnitPrice.setText(columns.get(4).getCellData(row).toString());
+        txtQty.setText(columns.get(5).getCellData(row).toString());
     }
 
     @FXML

@@ -11,7 +11,7 @@ public class RoomTM {
     private String RoomID;
     private String Type;
     private String Date;
-    private String customerId;
-    private double UnitPrice;
+    private Double UnitPrice;
     private String Qty;
+    private String customerId;
 }

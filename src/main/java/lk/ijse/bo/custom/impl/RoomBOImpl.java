@@ -23,7 +23,7 @@ public class RoomBOImpl implements RoomBO {
 
     @Override
     public boolean updateRoom(RoomDTO dto) throws SQLException, ClassNotFoundException {
-        return roomDAO.update(new Room(dto.getRoomID(),dto.getType(),dto.getDate(),dto.getCustomerId(),dto.getUnitPrice(),dto.getQty()));
+        return roomDAO.update(new Room(dto.getRoomID(),dto.getType(),dto.getDate(),dto.getUnitPrice(),dto.getQty(),dto.getCustomerId()));
     }
 
     @Override
@@ -33,7 +33,7 @@ public class RoomBOImpl implements RoomBO {
 
     @Override
     public boolean saveRoom(RoomDTO dto) throws SQLException, ClassNotFoundException {
-        return roomDAO.save(new Room(dto.getRoomID(),dto.getType(),dto.getDate(),dto.getCustomerId(),dto.getUnitPrice(),dto.getQty()));
+        return roomDAO.save(new Room(dto.getRoomID(),dto.getType(),dto.getDate(),dto.getUnitPrice(),dto.getQty(),dto.getCustomerId()));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class RoomBOImpl implements RoomBO {
         ArrayList<RoomDTO> allRooms = new ArrayList<>();
         ArrayList<Room> all = roomDAO.getAll();
         for (Room room : all) {
-            allRooms.add(new RoomDTO(room.getRoomID(),room.getType(),room.getDate(),room.getCustomerId(),room.getUnitPrice(),room.getQty()));
+            allRooms.add(new RoomDTO(room.getRoomID(),room.getType(),room.getDate(),room.getUnitPrice(),room.getQty(),room.getCustomerId()));
         }
         return allRooms;
     }
@@ -59,7 +59,7 @@ public class RoomBOImpl implements RoomBO {
     @Override
     public RoomDTO searchRoom(String id) throws SQLException, ClassNotFoundException {
         Room room = roomDAO.search(id);
-        RoomDTO roomDTO = new RoomDTO(room.getRoomID(),room.getType(),room.getDate(),room.getCustomerId(),room.getUnitPrice(),room.getQty());
+        RoomDTO roomDTO = new RoomDTO(room.getRoomID(),room.getType(),room.getDate(),room.getUnitPrice(),room.getQty(),room.getCustomerId());
         return roomDTO;
     }
 }

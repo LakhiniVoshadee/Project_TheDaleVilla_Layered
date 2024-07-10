@@ -23,7 +23,7 @@ public class RentBOImpl implements RentBO {
 
     @Override
     public boolean updateRent(RentDTO dto) throws SQLException, ClassNotFoundException {
-        return rentDAO.update(new Rent(dto.getRentID(),dto.getType(),dto.getQty(),dto.getDescription(),dto.getUnitPrice()));
+        return rentDAO.update(new Rent(dto.getRentID(),dto.getQty(),dto.getDescription(),dto.getType(),dto.getUnitPrice()));
     }
 
     @Override
@@ -33,7 +33,7 @@ public class RentBOImpl implements RentBO {
 
     @Override
     public boolean saveRent(RentDTO dto) throws SQLException, ClassNotFoundException {
-        return rentDAO.save(new Rent(dto.getRentID(),dto.getType(),dto.getQty(),dto.getDescription(),dto.getUnitPrice()));
+        return rentDAO.save(new Rent(dto.getRentID(),dto.getQty(),dto.getDescription(),dto.getType(),dto.getUnitPrice()));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class RentBOImpl implements RentBO {
         ArrayList<RentDTO> allRent = new ArrayList<>();
         ArrayList<Rent>all = rentDAO.getAll();
         for (Rent rent : all){
-            allRent.add(new RentDTO(rent.getRentID(),rent.getType(),rent.getQty(),rent.getDescription(),rent.getUnitPrice()));
+            allRent.add(new RentDTO(rent.getRentID(),rent.getQty(),rent.getDescription(),rent.getType(),rent.getUnitPrice()));
         }
         return allRent;
     }
@@ -59,7 +59,7 @@ public class RentBOImpl implements RentBO {
     @Override
     public RentDTO searchRent(String id) throws SQLException, ClassNotFoundException {
         Rent rent = rentDAO.search(id);
-        RentDTO rentDTO = new RentDTO(rent.getRentID(),rent.getType(),rent.getQty(),rent.getDescription(),rent.getUnitPrice());
+        RentDTO rentDTO = new RentDTO(rent.getRentID(),rent.getQty(),rent.getDescription(),rent.getType(),rent.getUnitPrice());
         return rentDTO;
     }
 }

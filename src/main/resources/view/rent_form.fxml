@@ -68,9 +68,9 @@
       <TableView fx:id="tblRent" layoutX="156.0" layoutY="611.0" onMouseClicked="#rentTableClick" prefHeight="246.0" prefWidth="822.0">
         <columns>
           <TableColumn fx:id="colId" prefWidth="140.0" text="ID" />
-          <TableColumn fx:id="colType" prefWidth="137.0" text="Type" />
-            <TableColumn fx:id="colQty" prefWidth="137.0" text="Qty" />
-            <TableColumn fx:id="colDescription" prefWidth="217.0" text="Description" />
+          <TableColumn fx:id="colQty" prefWidth="137.0" text="Qty" />
+            <TableColumn fx:id="colDescription" prefWidth="137.0" text="Description" />
+            <TableColumn fx:id="colType" prefWidth="217.0" text="Type" />
             <TableColumn fx:id="colUnitPrice" prefWidth="193.0" text="Unit Price" />
         </columns>
       </TableView>

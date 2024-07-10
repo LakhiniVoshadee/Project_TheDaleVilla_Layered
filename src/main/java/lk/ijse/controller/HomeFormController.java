@@ -1,14 +1,18 @@
 package lk.ijse.controller;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.CustomerBO;
+import lk.ijse.bo.custom.RentBO;
+import lk.ijse.bo.custom.RoomBO;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -44,11 +48,51 @@ public class HomeFormController implements Initializable {
 
 
     CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
+    RoomBO roomBO = (RoomBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ROOM);
+    RentBO rentBO = (RentBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.RENT);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         timeNow();
         countCustomer();
+        countRoom();
+        setDataToBarChart();
+        setPieChart();
+        countRental();
+
+    }
+
+    private void countRental() {
+        try {
+            int count = rentBO.countRent();
+            lblRentalCount.setText(String.valueOf(count));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void countRoom() {
+        try {
+            int count = roomBO.countRoom();
+            lblRoomCount.setText(String.valueOf(count));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private void setPieChart() {
+
+    }
+
+    private void setDataToBarChart() {
+       /* ObservableList<XYChart.Series<String, Integer>> barChartData = roomBO.getDataToBarChart();
+        barChart.setData(barChartData);*/
+
     }
 
     private void countCustomer() {

@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.CustomerBO;
@@ -130,7 +131,13 @@ public class RoomBookingFormController  implements Initializable {
     }
 
     private void setCellValueFactory() {
-
+        colRmId.setCellValueFactory(new PropertyValueFactory<>("RoomID"));
+        colType.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        colUnPrice.setCellValueFactory(new PropertyValueFactory<>("UnitPrice"));
+        colQtOnHand.setCellValueFactory(new PropertyValueFactory<>("QtyOnHand"));
+        colQty.setCellValueFactory(new PropertyValueFactory<>("Qty"));
+        colTotal.setCellValueFactory(new PropertyValueFactory<>("Total"));
+        colAction.setCellValueFactory(new PropertyValueFactory<>("btnRemove"));
     }
 
     @FXML

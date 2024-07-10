@@ -86,9 +86,9 @@ public class RentFormController implements Initializable {
     private void setCellValueFactory() {
 
         colId.setCellValueFactory(new PropertyValueFactory<>("RentID"));
-        colType.setCellValueFactory(new PropertyValueFactory<>("Type"));
         colQty.setCellValueFactory(new PropertyValueFactory<>("Qty"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        colType.setCellValueFactory(new PropertyValueFactory<>("Type"));
         colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("UnitPrice"));
     }
 
@@ -109,10 +109,10 @@ public class RentFormController implements Initializable {
             for (RentDTO rent : rentList) {
                 RentTM rentTM=new RentTM(
                        rent.getRentID(),
-                       rent.getType(),
-                       rent.getQty(),
-                       rent.getDescription(),
-                       rent.getUnitPrice());
+                        rent.getQty(),
+                        rent.getDescription(),
+                        rent.getType(),
+                        rent.getUnitPrice());
                 tmList.add(rentTM);
             }
             tblRent.setItems(tmList);
@@ -179,16 +179,16 @@ public class RentFormController implements Initializable {
     @FXML
     void btnSaveOnAction(ActionEvent event) {
         String RentID = txtRentId.getText();
-        String Type = txtType.getText();
         int Qty = Integer.parseInt(txtQty.getText());
         String Description = txtDescription.getText();
+        String Type = txtType.getText();
         double UnitPrice = Double.parseDouble(txtUnitPrice.getText());
 
         try {
-            boolean isSaved =rentBO.saveRent(new RentDTO(RentID,Type,Qty,Description,UnitPrice));
+            boolean isSaved =rentBO.saveRent(new RentDTO(RentID,Qty,Description,Type,UnitPrice));
             if (isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Rent Item saved successfully").show();
-                tblRent.getItems().add(new RentTM(RentID,Type,Qty,Description,UnitPrice));
+                tblRent.getItems().add(new RentTM(RentID,Qty,Description,Type,UnitPrice));
                 tblRent.refresh();
             }
         } catch (SQLException e) {
@@ -204,13 +204,13 @@ public class RentFormController implements Initializable {
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
         String RentID = txtRentId.getText();
-        String Type = txtType.getText();
         int Qty = Integer.parseInt(txtQty.getText());
         String Description = txtDescription.getText();
+        String Type = txtType.getText();
         double UnitPrice = Double.parseDouble(txtUnitPrice.getText());
 
         try {
-            boolean isUpdated = rentBO.updateRent(new RentDTO(RentID,Type,Qty,Description,UnitPrice));
+            boolean isUpdated = rentBO.updateRent(new RentDTO(RentID,Qty,Description,Type,UnitPrice));
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Rent Item updated successfully").show();
                 loadRentTable();
@@ -230,9 +230,9 @@ public class RentFormController implements Initializable {
         ObservableList<TableColumn<RentTM,?>> columns = tblRent.getColumns();
 
         txtRentId.setText(columns.get(0).getCellData(row).toString());
-        txtType.setText(columns.get(1).getCellData(row).toString());
-        txtQty.setText(columns.get(2).getCellData(row).toString());
-        txtDescription.setText(columns.get(3).getCellData(row).toString());
+        txtQty.setText(columns.get(1).getCellData(row).toString());
+        txtDescription.setText(columns.get(2).getCellData(row).toString());
+        txtType.setText(columns.get(3).getCellData(row).toString());
         txtUnitPrice.setText(columns.get(4).getCellData(row).toString());
     }
 

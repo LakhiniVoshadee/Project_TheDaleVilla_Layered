@@ -11,8 +11,8 @@ import java.io.Serializable;
 @Data
 public class RentDTO implements Serializable {
     private String RentID;
-    private String Type;
     private int Qty;
     private String Description;
+    private String Type;
     private double UnitPrice;
 }

@@ -41,9 +41,9 @@ public class RoomDAOImpl implements RoomDAO {
                 entity.getRoomID(),
                 entity.getType(),
                 entity.getDate(),
-                entity.getCustomerId(),
                 entity.getUnitPrice(),
-                entity.getQty()
+                entity.getQty(),
+                entity.getCustomerId()
                 );
     }
 
@@ -82,8 +82,8 @@ public class RoomDAOImpl implements RoomDAO {
                 rs.getString(1),
                 rs.getString(2),
                 rs.getString(3),
-                rs.getString(4),
-                rs.getDouble(5),
+                   rs.getDouble(4),
+                   rs.getString(5),
                 rs.getString(6)
            );
            rooms.add(room);

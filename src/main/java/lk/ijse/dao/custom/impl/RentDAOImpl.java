@@ -39,9 +39,9 @@ public class RentDAOImpl implements RentDAO {
     public boolean save(Rent entity) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("INSERT INTO rent VALUES(?,?,?,?,?)",
                 entity.getRentID(),
-                entity.getType(),
                 entity.getQty(),
                 entity.getDescription(),
+                entity.getType(),
                 entity.getUnitPrice());
     }
 
@@ -68,8 +68,8 @@ public class RentDAOImpl implements RentDAO {
         while (resultSet.next()) {
             Rent rent = new Rent(
                     resultSet.getString(1),
-                    resultSet.getString(2),
-                    resultSet.getInt(3),
+                    resultSet.getInt(2),
+                    resultSet.getString(3),
                     resultSet.getString(4),
                     resultSet.getDouble(5)
             );

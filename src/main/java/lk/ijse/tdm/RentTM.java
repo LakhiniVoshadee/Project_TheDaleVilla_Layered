@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class RentTM {
     private String RentID;
-    private String Type;
     private int Qty;
     private String Description;
+    private String Type;
     private double UnitPrice;
 
 
