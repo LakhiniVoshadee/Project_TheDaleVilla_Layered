@@ -22,7 +22,7 @@ public class RoomBookingDAOImpl implements RoomBookingDAO {
 
     @Override
     public ResultSet generateNextId() throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("Select RoomBookingID from RoomBooking order by RoomBookingID desc limit 1");
+        return SQLUtil.execute("SELECT RoomBookingID from RoomBooking order by RoomBookingID desc limit 1");
     }
 
     @Override

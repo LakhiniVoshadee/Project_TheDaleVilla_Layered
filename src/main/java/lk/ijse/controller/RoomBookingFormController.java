@@ -14,12 +14,15 @@ import javafx.scene.layout.Pane;
 import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.CustomerBO;
 import lk.ijse.bo.custom.RoomBO;
+import lk.ijse.bo.custom.RoomBookingBO;
 import lk.ijse.model.CustomerDTO;
 import lk.ijse.model.RoomDTO;
 import lk.ijse.tdm.RoomBookingTM;
 
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -101,17 +104,53 @@ public class RoomBookingFormController  implements Initializable {
 
     CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
     RoomBO roomBO = (RoomBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ROOM);
+    RoomBookingBO roomBookingBO = (RoomBookingBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.Room_BOOKING);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        try {
+            lblBId.setText(generateBookingID());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         setCellValueFactory();
         getRoomId();
         getCusId();
         setDate();
     }
 
-    private void setDate() {
+    private String generateBookingID() {
+        try {
+            ResultSet rst = roomBookingBO.generateNextRoomBookingId();
+            String currentOrderId = "";
+            if (rst.next()) {
+                currentOrderId = rst.getString(1);
+                return nextOrderId(currentOrderId);
+            }
+            return nextOrderId(null);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
+    }
+
+    private String nextOrderId(String currentOrderId) {
+        if (currentOrderId != null) {
+            String[] split = currentOrderId.split("O ");
+            int orderID = Integer.parseInt(split[1]);
+            orderID++;
+            return "O " + orderID;
+        }
+        return "O 1";
+
+    }
+
+
+    private void setDate() {
+        LocalDate now = LocalDate.now();
+        lblBDate.setText(String.valueOf(now));
 
     }
 
