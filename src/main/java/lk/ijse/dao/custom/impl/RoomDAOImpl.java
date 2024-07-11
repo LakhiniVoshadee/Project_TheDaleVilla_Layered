@@ -3,9 +3,13 @@ package lk.ijse.dao.custom.impl;
 
 import lk.ijse.dao.SQLUtil;
 import lk.ijse.dao.custom.RoomDAO;
+import lk.ijse.db.Dbconnection;
 import lk.ijse.entity.Customer;
 import lk.ijse.entity.Room;
+import lk.ijse.entity.RoomDetails;
+import lk.ijse.model.RoomDetailsDTO;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -112,6 +116,21 @@ public class RoomDAOImpl implements RoomDAO {
         }
 
         return Integer.parseInt(null);
+    }
+
+    @Override
+    public  boolean updateRoomQty(List<RoomDetails> roomDetails) throws ClassNotFoundException, SQLException {
+        for (RoomDetails roomDetail : roomDetails) {
+            if (!updateRoomQty(roomDetail)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public  boolean updateRoomQty(RoomDetails roomDetails) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute("update Room set Qty = Qty - ? where RoomID = ?",roomDetails);
+
     }
 }
 

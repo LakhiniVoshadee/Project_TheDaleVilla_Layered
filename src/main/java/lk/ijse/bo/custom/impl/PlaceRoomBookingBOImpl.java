@@ -36,19 +36,22 @@ public class PlaceRoomBookingBOImpl implements PlaceRoomBookingBO {
 
         }*/
 
-        List<RoomBooking> roomDetails = new ArrayList<>(
+        List<RoomDetails> roomDetails = new ArrayList<>(
                 (Collection) placedRoomBooking.getRoomDetails().stream().map(detail -> new RoomDetails(detail.getRoomBookingID(),detail.getRoomID(),
                         detail.getQty(),detail.getUnitPrice(),detail.getType())
                 )
         );
-        RoomBooking roomBooking1 =null;
-        for (RoomBooking roomDetails1 : roomDetails){
-            roomBooking1 = new RoomBooking(
+        RoomDetails roomBooking1 =null;
+        for (RoomDetails roomDetails1 : roomDetails){
+            roomBooking1 = new RoomDetails(
                     roomDetails1.getRoomBookingID(),
-                    roomDetails1.getCusID(),
-                    roomDetails1.getDate()
+                    roomDetails1.getRoomID(),
+                    roomDetails1.getQty(),
+                    roomDetails1.getUnitPrice(),
+                    roomDetails1.getType()
             );
         }
+
 
 
         Connection connection = Dbconnection.getInstance().getConnection();
@@ -63,7 +66,7 @@ public class PlaceRoomBookingBOImpl implements PlaceRoomBookingBO {
                 System.out.println(isOrderDetailSaved);
                 if(isOrderDetailSaved) {
                     System.out.println("orderdetailssaved");
-                    boolean isRoomUpdated = roomDAO.updateRoomQty(placedRoomBooking.getRoomDetails());
+                    boolean isRoomUpdated = roomDAO.updateRoomQty(roomDetails);
                     if(isRoomUpdated) {
                         System.out.println("room update");
                         connection.commit();
