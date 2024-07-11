@@ -13,16 +13,24 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.CustomerBO;
+import lk.ijse.bo.custom.PlaceRoomBookingBO;
 import lk.ijse.bo.custom.RoomBO;
 import lk.ijse.bo.custom.RoomBookingBO;
-import lk.ijse.model.CustomerDTO;
-import lk.ijse.model.RoomDTO;
+import lk.ijse.db.Dbconnection;
+import lk.ijse.model.*;
 import lk.ijse.tdm.RoomBookingTM;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.net.URL;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -105,6 +113,7 @@ public class RoomBookingFormController  implements Initializable {
     CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
     RoomBO roomBO = (RoomBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ROOM);
     RoomBookingBO roomBookingBO = (RoomBookingBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.Room_BOOKING);
+    PlaceRoomBookingBO placeRoomBookingBO = (PlaceRoomBookingBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PLACE_ROOM_BOOKING);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -254,7 +263,67 @@ public class RoomBookingFormController  implements Initializable {
     }
 
     @FXML
-    void btnPlaceOrderOnAction(ActionEvent event) {
+    void btnPlaceOrderOnAction(ActionEvent event) throws ClassNotFoundException {
+        String RoomBookingId = lblBId.getText();
+        Date date = Date.valueOf(LocalDate.now());
+        String CustomerId = cmbCId.getValue();
+
+        double bookingAmount = 0;
+        RoomBookingDTO roomBooking = new RoomBookingDTO(RoomBookingId,CustomerId,date);
+        List<RoomDetailsDTO>roombookingList = new ArrayList<>();
+
+        for (int i=0; i<tblRmBookingCart.getItems().size(); i++){
+            RoomBookingTM roomBookingTM = cartList.get(i);
+
+            RoomDetailsDTO roomDetails = new RoomDetailsDTO(
+                    RoomBookingId,
+                    roomBookingTM.getRoomID(),
+                    roomBookingTM.getQty(),
+                    roomBookingTM.getUnitPrice(),
+                    roomBookingTM.getType()
+            );
+            roombookingList.add(roomDetails);
+        }
+        PlacedRoomBookingDTO placedRoomBooking = new PlacedRoomBookingDTO(roomBooking,roombookingList);
+
+        try {
+            boolean isOrderPlaced = placeRoomBookingBO.orderPlaced(placedRoomBooking);
+            System.out.println(isOrderPlaced);
+            if (isOrderPlaced){
+                // new Alert(Alert.AlertType.CONFIRMATION,"Order Placed Successfully").show();
+                ButtonType yes = new ButtonType("yes", ButtonBar.ButtonData.OK_DONE);
+                ButtonType no = new ButtonType("no", ButtonBar.ButtonData.CANCEL_CLOSE);
+                Optional<ButtonType>result = new Alert(Alert.AlertType.CONFIRMATION,"Order Successfully.. Do you want print a bill ?",yes,no).showAndWait();
+
+                if (result.orElse(no) == yes) {
+                    JasperDesign jasperDesign =
+                            JRXmlLoader.load("src/main/resources/view/report/RoomBill.jrxml");
+
+                    JRDesignQuery jrDesignQuery = new JRDesignQuery();
+                    jrDesignQuery.setText("SELECT * FROM RoomDetails ORDER BY RoomID desc LIMIT 1");
+
+                    jasperDesign.setQuery(jrDesignQuery);
+
+                    JasperReport jasperReport =
+                            JasperCompileManager.compileReport(jasperDesign);
+
+                    JasperPrint jasperPrint =
+                            JasperFillManager.fillReport(
+                                    jasperReport,
+                                    null,
+                                    Dbconnection.getInstance().getConnection());
+
+                    JasperViewer.viewReport(jasperPrint,false);
+                }
+            }else{
+                new Alert(Alert.AlertType.WARNING, "Order Placed Failed").show();
+            }
+        }catch (SQLException e){
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 

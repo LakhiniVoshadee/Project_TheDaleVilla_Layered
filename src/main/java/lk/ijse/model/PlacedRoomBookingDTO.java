@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 
 public class PlacedRoomBookingDTO {
-    private RoomBooking roomBooking;
-    private List<RoomDetails>roomDetails;
+    private RoomBookingDTO roomBooking;
+    private List<RoomDetailsDTO>roomDetails;
 
 }
