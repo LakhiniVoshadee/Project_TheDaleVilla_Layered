@@ -108,13 +108,11 @@ public class RoomBookingFormController  implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         try {
             lblBId.setText(generateBookingID());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
         setCellValueFactory();
         getRoomId();
         getCusId();

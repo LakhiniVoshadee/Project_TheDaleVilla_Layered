@@ -59,7 +59,18 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public Room search(String id) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("SELECT * from room where RoomID=?",id);
+        ResultSet rst = SQLUtil.execute("SELECT * from room where RoomID=?",id);
+        Room room = null;
+        if (rst.next()) {
+            String RoomID = rst.getString(1);
+            String Type = rst.getString(2);
+            String Date = rst.getString(3);
+            Double UnitPrice = Double.valueOf(rst.getString(4));
+            String Qty = rst.getString(5);
+            String CustomerId = rst.getString(6);
+            room = new Room(RoomID,Type,Date,UnitPrice,Qty,CustomerId);
+        }
+        return room;
     }
 
    /* @Override

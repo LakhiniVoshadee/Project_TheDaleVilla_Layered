@@ -60,7 +60,18 @@ public class CustomerDAOImpl implements CustomerDAO {
 
  @Override
  public Customer search(String cId) throws SQLException, ClassNotFoundException {
-  return SQLUtil.execute("select * from customer where CusId=?",cId);
+  ResultSet rst = SQLUtil.execute("SELECT * from customer where CusId=?",cId);
+  Customer customer = null;
+  if (rst.next()) {
+      String cusId = rst.getString(1);
+      String cusName = rst.getString(2);
+      String sex = rst.getString(3);
+      String nic = rst.getString(4);
+      String contact = rst.getString(5);
+      String email = rst.getString(6);
+      String userID = rst.getString(7);
+  }
+  return customer;
  }
 
 
